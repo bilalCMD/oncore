@@ -77,17 +77,19 @@ async function updateHeaderAuth() {
   const user = await getCurrentUser();
   const loginBtn = document.getElementById('headerLoginBtn');
   const userMenu = document.getElementById('headerUserMenu');
+  const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+  const mobileUserMenu = document.getElementById('mobileUserMenu');
 
   if (user) {
     const profile = await getCurrentProfile();
     const isAdminUser = profile?.is_admin === true;
+    const dashboardLink = isAdminUser ? 'admin.html' : 'dashboard.html';
+    const dashboardLabel = isAdminUser ? 'Admin Panel' : 'My Dashboard';
 
+    // Desktop header
     if (loginBtn) loginBtn.style.display = 'none';
-
     if (userMenu) {
       userMenu.style.display = 'flex';
-      const dashboardLink = isAdminUser ? 'admin.html' : 'dashboard.html';
-      const dashboardLabel = isAdminUser ? 'Admin Panel' : 'My Dashboard';
       userMenu.innerHTML = `
         <a href="${dashboardLink}" class="nav-link" style="display:flex;align-items:center;gap:6px;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -96,9 +98,24 @@ async function updateHeaderAuth() {
         <button onclick="logout()" class="btn btn-outline" style="padding:8px 16px;font-size:14px;">Logout</button>
       `;
     }
+
+    // Mobile menu
+    if (mobileLoginBtn) mobileLoginBtn.style.display = 'none';
+    if (mobileUserMenu) {
+      mobileUserMenu.style.display = 'flex';
+      mobileUserMenu.innerHTML = `
+        <a href="${dashboardLink}" class="nav-link" style="display:flex;align-items:center;gap:6px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          ${dashboardLabel}
+        </a>
+        <button onclick="logout()" class="btn btn-outline" style="padding:10px 16px;font-size:14px;width:100%;">Logout</button>
+      `;
+    }
   } else {
     if (loginBtn) loginBtn.style.display = 'flex';
     if (userMenu) userMenu.style.display = 'none';
+    if (mobileLoginBtn) mobileLoginBtn.style.display = 'flex';
+    if (mobileUserMenu) mobileUserMenu.style.display = 'none';
   }
 }
 
