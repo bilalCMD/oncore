@@ -282,12 +282,24 @@
       });
       
       if (projError) throw projError;
-      
-      formMessage.style.cssText = 'display:block;background:#d4edda;color:#155724;padding:16px;border-radius:8px;';
-      formMessage.innerHTML = `✅ <strong>Project posted!</strong> Admin will review and publish it shortly. <a href="dashboard.html" style="color:#155724;font-weight:600;">View dashboard →</a>`;
+
+      formMessage.style.cssText = 'display:block;background:#d4edda;color:#155724;padding:20px;border-radius:8px;border-left:4px solid #28a745;';
+      formMessage.innerHTML = `
+        <div style="font-size:18px;font-weight:600;margin-bottom:8px;">✅ Project posted successfully!</div>
+        <div style="font-size:14px;line-height:1.6;">
+          <strong>What happens next:</strong>
+          <ol style="margin:8px 0 0 20px;padding:0;">
+            <li>Admin will review your project for completeness within 1–2 business days</li>
+            <li>Once approved, your project will appear on the <strong>public Research page</strong></li>
+            <li>Students will start applying and you'll see them on your dashboard with auto-calculated match scores</li>
+          </ol>
+          <div style="margin-top:12px;"><a href="dashboard.html" style="color:#155724;font-weight:600;text-decoration:underline;">→ View your dashboard now</a></div>
+        </div>
+      `;
       submitBtn.textContent = 'Posted ✓';
-      
-      setTimeout(() => { window.location.href = 'dashboard.html'; }, 2500);
+      window.scrollTo({ top: formMessage.offsetTop - 80, behavior: 'smooth' });
+
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 4000);
       
     } catch (err) {
       formMessage.style.cssText = 'display:block;background:#f8d7da;color:#721c24;padding:16px;border-radius:8px;';

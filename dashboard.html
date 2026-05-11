@@ -32,6 +32,112 @@
     letter-spacing: 0.5px;
     margin-left: 12px;
   }
+
+  /* ─── Welcome Hero (for new users with no submissions) ─── */
+  .welcome-hero {
+    background: linear-gradient(135deg, #2d5a3d 0%, #1a4029 100%);
+    color: white;
+    padding: 48px 40px;
+    border-radius: 16px;
+    margin-bottom: 32px;
+    box-shadow: 0 10px 30px rgba(45,90,61,0.2);
+  }
+  .welcome-hero h2 {
+    margin: 0 0 12px;
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+  }
+  .welcome-hero p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 0 24px;
+    opacity: 0.95;
+  }
+  .welcome-hero .cta-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .welcome-hero .btn-cta {
+    background: white;
+    color: #2d5a3d;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+  }
+  .welcome-hero .btn-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+  .welcome-hero .btn-ghost {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 15px;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+
+  /* ─── How It Works (steps) ─── */
+  .steps-card {
+    background: white;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border: 1px solid #f0f0f0;
+    margin-bottom: 32px;
+  }
+  .steps-card h3 {
+    margin: 0 0 24px;
+    font-size: 20px;
+    color: #1a1a1a;
+  }
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .step-item {
+    position: relative;
+    padding-left: 60px;
+  }
+  .step-num {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #2d5a3d;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .step-item h4 {
+    margin: 0 0 6px;
+    font-size: 15px;
+    color: #1a1a1a;
+  }
+  .step-item p {
+    margin: 0;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  /* ─── Stats grid ─── */
   .stat-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -53,12 +159,24 @@
     margin-bottom: 8px;
   }
   .stat-card .stat-num { font-size: 32px; font-weight: 700; color: #1a1a1a; }
+
+  /* ─── Section title + button ─── */
+  .section-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 32px 0 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
   .section-title {
     font-size: 20px;
     font-weight: 600;
-    margin: 32px 0 16px;
+    margin: 0;
     color: #1a1a1a;
   }
+
+  /* ─── Application/Project cards ─── */
   .item-card {
     background: white;
     padding: 24px;
@@ -81,6 +199,28 @@
     color: #444;
     line-height: 1.5;
   }
+  .item-card .status-banner {
+    margin-top: 16px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .item-card .status-banner.pending {
+    background: #fff3cd;
+    color: #856404;
+    border-left: 3px solid #ffc107;
+  }
+  .item-card .status-banner.matched {
+    background: #d4edda;
+    color: #155724;
+    border-left: 3px solid #28a745;
+  }
+  .item-card .status-banner.rejected {
+    background: #f8d7da;
+    color: #721c24;
+    border-left: 3px solid #dc3545;
+  }
   .status-badge {
     padding: 6px 12px;
     border-radius: 12px;
@@ -92,14 +232,7 @@
   .status-pending { background: #fff3cd; color: #856404; }
   .status-matched, .status-approved { background: #d4edda; color: #155724; }
   .status-rejected { background: #f8d7da; color: #721c24; }
-  .empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: #999;
-    background: #f9f9f9;
-    border-radius: 12px;
-  }
-  .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
+
   .match-score {
     display: inline-block;
     padding: 4px 10px;
@@ -110,10 +243,28 @@
     font-size: 13px;
     margin-left: 8px;
   }
+  .match-score.strong { background: #d4edda; color: #155724; }
+  .match-score.mid    { background: #fff3cd; color: #856404; }
+  .match-score.weak   { background: #f8d7da; color: #721c24; }
+
   .loading {
     text-align: center;
     padding: 40px;
     color: #999;
+  }
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+    background: #f9f9f9;
+    border-radius: 12px;
+  }
+  .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
+
+  @media (max-width: 600px) {
+    .item-card { flex-direction: column; }
+    .welcome-hero { padding: 32px 24px; }
+    .welcome-hero h2 { font-size: 22px; }
   }
 </style>
 </head>
@@ -146,7 +297,7 @@
       <p style="color:#666;margin:8px 0 0;" id="userEmail">...</p>
     </div>
   </div>
-  
+
   <div id="dashContent" class="loading">Loading your dashboard...</div>
 </div>
 
@@ -154,114 +305,205 @@
 <script src="js/supabase-config.js"></script>
 <script>
   (async () => {
-    const user = await getCurrentUser();
-    if (!user) {
-      window.location.href = 'login.html';
-      return;
-    }
-    
-    const profile = await getCurrentProfile();
-    if (!profile) {
-      document.getElementById('dashContent').innerHTML = '<div class="empty-state"><div class="icon">⚠️</div>Profile not found. Please contact admin.</div>';
-      return;
-    }
-    
-    // If admin, redirect to admin panel
-    if (profile.is_admin) {
-      window.location.href = 'admin.html';
-      return;
-    }
-    
-    document.getElementById('userName').textContent = profile.full_name || profile.email.split('@')[0];
-    document.getElementById('userEmail').textContent = profile.email;
-    document.getElementById('roleBadge').textContent = profile.role;
-    
-    if (profile.role === 'student') {
-      await renderStudentDashboard(profile);
-    } else if (profile.role === 'doctor') {
-      await renderDoctorDashboard(profile);
-    } else {
-      document.getElementById('dashContent').innerHTML = '<div class="empty-state">Unknown role.</div>';
+    try {
+      const user = await getCurrentUser();
+      if (!user) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const profile = await getCurrentProfile();
+      if (!profile) {
+        document.getElementById('userName').textContent = user.email.split('@')[0];
+        document.getElementById('userEmail').textContent = user.email;
+        document.getElementById('roleBadge').textContent = 'no profile';
+        document.getElementById('dashContent').innerHTML = `
+          <div class="empty-state" style="text-align:left;padding:32px;background:#fff3cd;border:1px solid #ffc107;color:#856404;">
+            <div style="font-size:48px;text-align:center;margin-bottom:16px;">⚠️</div>
+            <h3 style="margin:0 0 12px;text-align:center;">Profile not found</h3>
+            <p>Aapka profile database mein nahi mila. SQL setup chalao Supabase mein.</p>
+            <div style="text-align:center;margin-top:20px;">
+              <button onclick="location.reload()" class="btn btn-primary">🔄 Refresh</button>
+              <button onclick="logout()" class="btn btn-ghost" style="margin-left:8px;">Logout</button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      // Admin → admin panel
+      if (profile.is_admin) {
+        window.location.href = 'admin.html';
+        return;
+      }
+
+      document.getElementById('userName').textContent = profile.full_name || profile.email.split('@')[0];
+      document.getElementById('userEmail').textContent = profile.email;
+      document.getElementById('roleBadge').textContent = profile.role;
+
+      if (profile.role === 'student') {
+        await renderStudentDashboard(profile);
+      } else if (profile.role === 'doctor') {
+        await renderDoctorDashboard(profile);
+      } else {
+        document.getElementById('dashContent').innerHTML = '<div class="empty-state">Unknown role.</div>';
+      }
+    } catch (err) {
+      console.error('Dashboard load error:', err);
+      document.getElementById('dashContent').innerHTML = `
+        <div class="empty-state" style="background:#f8d7da;color:#721c24;">
+          <div class="icon">❌</div>
+          <h3>Error: ${err.message}</h3>
+          <button onclick="location.reload()" class="btn btn-primary" style="margin-top:16px;">Retry</button>
+        </div>
+      `;
     }
   })();
-  
+
+  // ═════════════════════════════════════════════════════════════
+  // STUDENT DASHBOARD
+  // ═════════════════════════════════════════════════════════════
   async function renderStudentDashboard(profile) {
     const { data: apps, error } = await supabaseClient
       .from('applications')
       .select('*, projects(title, discipline, doctor_id, profiles!projects_doctor_id_fkey(full_name))')
       .eq('student_id', profile.id)
       .order('created_at', { ascending: false });
-    
+
     if (error) {
       document.getElementById('dashContent').innerHTML = `<div class="empty-state"><div class="icon">⚠️</div>${error.message}</div>`;
       return;
     }
-    
+
     const total = apps?.length || 0;
-    const pending = apps?.filter(a => a.status === 'pending').length || 0;
-    const matched = apps?.filter(a => a.status === 'matched' || a.status === 'approved').length || 0;
-    const rejected = apps?.filter(a => a.status === 'rejected').length || 0;
-    
+
+    // ─── NO APPLICATIONS YET — show welcome + steps + big CTA ───
+    if (total === 0) {
+      document.getElementById('dashContent').innerHTML = `
+        <div class="welcome-hero">
+          <h2>👋 Welcome to ONCORE, ${profile.full_name || 'student'}!</h2>
+          <p>You haven't submitted any research applications yet. Submit your profile and apply for oncology research opportunities at KFSHRC. Our admin will review and match you with relevant projects.</p>
+          <div class="cta-row">
+            <a href="student-application.html" class="btn-cta">
+              📝 Submit Your Application
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="research.html" class="btn-ghost">Browse Projects</a>
+          </div>
+        </div>
+
+        <div class="steps-card">
+          <h3>📋 How it works</h3>
+          <div class="steps-grid">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <h4>Fill the application form</h4>
+              <p>Tell us about your academic background, skills, and research interests.</p>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <h4>Admin reviews</h4>
+              <p>Our admin team reviews your profile and calculates your match score with available projects.</p>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <h4>Get matched</h4>
+              <p>If approved, you'll see "Matched" status here with the project details and supervisor info.</p>
+            </div>
+            <div class="step-item">
+              <div class="step-num">4</div>
+              <h4>Start research</h4>
+              <p>Faculty contacts you directly to begin the research collaboration.</p>
+            </div>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    // ─── HAS APPLICATIONS — show stats + list ───
+    const pending  = apps.filter(a => a.status === 'pending').length;
+    const matched  = apps.filter(a => a.status === 'matched' || a.status === 'approved').length;
+    const rejected = apps.filter(a => a.status === 'rejected').length;
+
     let html = `
       <div class="stat-grid">
         <div class="stat-card"><div class="stat-label">Total Applications</div><div class="stat-num">${total}</div></div>
-        <div class="stat-card"><div class="stat-label">Pending Review</div><div class="stat-num">${pending}</div></div>
-        <div class="stat-card"><div class="stat-label">Matched</div><div class="stat-num" style="color:#2d5a3d;">${matched}</div></div>
+        <div class="stat-card"><div class="stat-label">Pending Review</div><div class="stat-num" style="color:#856404;">${pending}</div></div>
+        <div class="stat-card"><div class="stat-label">Matched ✓</div><div class="stat-num" style="color:#2d5a3d;">${matched}</div></div>
         <div class="stat-card"><div class="stat-label">Rejected</div><div class="stat-num" style="color:#999;">${rejected}</div></div>
       </div>
-      
-      <div style="display:flex;justify-content:space-between;align-items:center;margin:32px 0 16px;">
-        <h2 class="section-title" style="margin:0;">My Applications</h2>
+
+      <div class="section-row">
+        <h2 class="section-title">My Applications</h2>
         <a href="student-application.html" class="btn btn-primary">+ New Application</a>
       </div>
     `;
-    
-    if (total === 0) {
-      html += `
-        <div class="empty-state">
-          <div class="icon">📝</div>
-          <h3 style="margin:0 0 8px;color:#666;">No applications yet</h3>
-          <p style="margin:0 0 16px;">Submit your first research application to get started.</p>
-          <a href="student-application.html" class="btn btn-primary">Apply Now</a>
-        </div>
-      `;
-    } else {
-      html += apps.map(a => {
-        const project = a.projects || {};
-        const doctor = project.profiles?.full_name || 'Unknown';
-        return `
-          <div class="item-card">
-            <div style="flex:1;">
-              <h3>${a.research_interest || 'General Application'}</h3>
+
+    html += apps.map(a => {
+      const project = a.projects || {};
+      const doctor = project.profiles?.full_name || 'Unknown';
+      const score = a.match_score;
+      const scoreClass = score >= 80 ? 'strong' : score >= 60 ? 'mid' : 'weak';
+
+      let statusBanner = '';
+      if (a.status === 'pending') {
+        statusBanner = `
+          <div class="status-banner pending">
+            ⏳ <strong>Under Review</strong> — Our admin team is reviewing your application. You'll be notified once a match is approved or if there's an update. This usually takes 2–5 business days.
+          </div>
+        `;
+      } else if (a.status === 'matched' || a.status === 'approved') {
+        statusBanner = `
+          <div class="status-banner matched">
+            ✅ <strong>Approved & Matched!</strong> Congratulations! ${project.title ? `You've been matched to <strong>${project.title}</strong>` : 'Your application has been approved'}${doctor !== 'Unknown' ? ` with <strong>${doctor}</strong>` : ''}. The faculty supervisor will contact you soon at <strong>${profile.email}</strong>.
+          </div>
+        `;
+      } else if (a.status === 'rejected') {
+        statusBanner = `
+          <div class="status-banner rejected">
+            ❌ <strong>Not selected this round</strong>${a.admin_note ? ` — Admin note: ${a.admin_note}` : ''}. Don't worry! You can submit another application or browse other projects.
+          </div>
+        `;
+      }
+
+      return `
+        <div class="item-card" style="flex-direction:column;align-items:stretch;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;">
+            <div style="flex:1;min-width:250px;">
+              <h3>${(a.research_interest || 'General Application').slice(0, 100)}${(a.research_interest || '').length > 100 ? '...' : ''}</h3>
               <div class="meta">
                 ${project.title ? `Project: <strong>${project.title}</strong> · ` : ''}
                 Discipline: <strong>${a.discipline || project.discipline || 'N/A'}</strong>
-                ${a.match_score !== null ? `<span class="match-score">Match: ${a.match_score}/100</span>` : ''}
+                ${score !== null && score !== undefined ? `<span class="match-score ${scoreClass}">Match: ${score}/100</span>` : ''}
               </div>
-              <div class="desc">Submitted ${new Date(a.created_at).toLocaleDateString()}</div>
+              <div class="desc" style="font-size:13px;color:#999;">Submitted ${new Date(a.created_at).toLocaleDateString()} · ${(a.skills || []).slice(0,3).join(', ') || 'No skills listed'}</div>
             </div>
             <span class="status-badge status-${a.status}">${a.status}</span>
           </div>
-        `;
-      }).join('');
-    }
-    
+          ${statusBanner}
+        </div>
+      `;
+    }).join('');
+
     document.getElementById('dashContent').innerHTML = html;
   }
-  
+
+  // ═════════════════════════════════════════════════════════════
+  // DOCTOR DASHBOARD
+  // ═════════════════════════════════════════════════════════════
   async function renderDoctorDashboard(profile) {
     const { data: projects, error: pErr } = await supabaseClient
       .from('projects')
       .select('*')
       .eq('doctor_id', profile.id)
       .order('created_at', { ascending: false });
-    
+
     if (pErr) {
       document.getElementById('dashContent').innerHTML = `<div class="empty-state"><div class="icon">⚠️</div>${pErr.message}</div>`;
       return;
     }
-    
-    // Fetch applications to doctor's projects
+
     let allApps = [];
     if (projects && projects.length > 0) {
       const projectIds = projects.map(p => p.id);
@@ -271,57 +513,123 @@
         .in('project_id', projectIds);
       allApps = apps || [];
     }
-    
+
     const totalProjects = projects?.length || 0;
-    const totalApps = allApps.length;
-    const matched = allApps.filter(a => a.status === 'matched' || a.status === 'approved').length;
-    
+
+    // ─── NO PROJECTS YET — welcome + steps + big CTA ───
+    if (totalProjects === 0) {
+      document.getElementById('dashContent').innerHTML = `
+        <div class="welcome-hero">
+          <h2>👋 Welcome, Dr. ${(profile.full_name || '').split(' ').slice(-1)[0] || profile.full_name || 'Doctor'}!</h2>
+          <p>You haven't posted any research projects yet. Post your first oncology research opportunity to start matching with talented Alfaisal medical students.</p>
+          <div class="cta-row">
+            <a href="doctor-requirements.html" class="btn-cta">
+              🔬 Post Your First Project
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="research.html" class="btn-ghost">View Live Projects</a>
+          </div>
+        </div>
+
+        <div class="steps-card">
+          <h3>📋 How it works</h3>
+          <div class="steps-grid">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <h4>Post your project</h4>
+              <p>Describe your research opportunity, required skills, and student criteria.</p>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <h4>Admin reviews</h4>
+              <p>Admin reviews your project for completeness and approves it for the public listing.</p>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <h4>Goes live publicly</h4>
+              <p>Once approved, your project appears on the public Research page where students can apply.</p>
+            </div>
+            <div class="step-item">
+              <div class="step-num">4</div>
+              <h4>Review applicants</h4>
+              <p>You'll see student applications here with auto-calculated match scores.</p>
+            </div>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    // ─── HAS PROJECTS — show stats + list ───
+    const totalApps    = allApps.length;
+    const matched      = allApps.filter(a => a.status === 'matched' || a.status === 'approved').length;
+    const approvedProj = projects.filter(p => p.status === 'approved').length;
+    const pendingProj  = projects.filter(p => p.status === 'pending' || !p.status).length;
+    const rejectedProj = projects.filter(p => p.status === 'rejected').length;
+
     let html = `
       <div class="stat-grid">
         <div class="stat-card"><div class="stat-label">My Projects</div><div class="stat-num">${totalProjects}</div></div>
-        <div class="stat-card"><div class="stat-label">Total Applications</div><div class="stat-num">${totalApps}</div></div>
-        <div class="stat-card"><div class="stat-label">Approved Matches</div><div class="stat-num" style="color:#2d5a3d;">${matched}</div></div>
+        <div class="stat-card"><div class="stat-label">Live (Public)</div><div class="stat-num" style="color:#2d5a3d;">${approvedProj}</div></div>
+        <div class="stat-card"><div class="stat-label">Pending Review</div><div class="stat-num" style="color:#856404;">${pendingProj}</div></div>
+        <div class="stat-card"><div class="stat-label">Total Applicants</div><div class="stat-num">${totalApps}</div></div>
+        <div class="stat-card"><div class="stat-label">Matched ✓</div><div class="stat-num" style="color:#2d5a3d;">${matched}</div></div>
       </div>
-      
-      <div style="display:flex;justify-content:space-between;align-items:center;margin:32px 0 16px;">
-        <h2 class="section-title" style="margin:0;">My Research Projects</h2>
+
+      <div class="section-row">
+        <h2 class="section-title">My Research Projects</h2>
         <a href="doctor-requirements.html" class="btn btn-primary">+ Post New Project</a>
       </div>
     `;
-    
-    if (totalProjects === 0) {
-      html += `
-        <div class="empty-state">
-          <div class="icon">🔬</div>
-          <h3 style="margin:0 0 8px;color:#666;">No projects posted yet</h3>
-          <p style="margin:0 0 16px;">Post your first research opportunity to start matching with students.</p>
-          <a href="doctor-requirements.html" class="btn btn-primary">Post a Project</a>
-        </div>
-      `;
-    } else {
-      html += projects.map(p => {
-        const projectApps = allApps.filter(a => a.project_id === p.id);
-        const projectMatched = projectApps.filter(a => a.status === 'matched' || a.status === 'approved').length;
-        return `
-          <div class="item-card">
-            <div style="flex:1;">
+
+    html += projects.map(p => {
+      const projectApps     = allApps.filter(a => a.project_id === p.id);
+      const projectMatched  = projectApps.filter(a => a.status === 'matched' || a.status === 'approved').length;
+      const status = p.status || 'pending';
+
+      let statusBanner = '';
+      if (status === 'pending') {
+        statusBanner = `
+          <div class="status-banner pending">
+            ⏳ <strong>Pending Admin Review</strong> — Your project is being reviewed and is not yet visible to students. Once approved, it will appear on the public Research page.
+          </div>
+        `;
+      } else if (status === 'approved') {
+        statusBanner = `
+          <div class="status-banner matched">
+            ✅ <strong>Live on Research page</strong> — Your project is publicly visible and accepting student applications.
+          </div>
+        `;
+      } else if (status === 'rejected') {
+        statusBanner = `
+          <div class="status-banner rejected">
+            ❌ <strong>Not approved</strong> — Please contact admin or post a revised project.
+          </div>
+        `;
+      }
+
+      return `
+        <div class="item-card" style="flex-direction:column;align-items:stretch;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;">
+            <div style="flex:1;min-width:250px;">
               <h3>${p.title}</h3>
               <div class="meta">
-                Discipline: <strong>${p.discipline}</strong> · 
+                Discipline: <strong>${p.discipline}</strong> ·
                 Skills: ${(p.required_skills || []).slice(0,3).join(', ') || 'None specified'}
               </div>
               <div class="desc">${(p.description || '').slice(0, 200)}${(p.description || '').length > 200 ? '...' : ''}</div>
               <div style="margin-top:12px;font-size:13px;color:#666;">
-                <strong>${projectApps.length}</strong> applications · 
-                <strong style="color:#2d5a3d;">${projectMatched}</strong> approved
+                <strong>${projectApps.length}</strong> applicant${projectApps.length === 1 ? '' : 's'} ·
+                <strong style="color:#2d5a3d;">${projectMatched}</strong> matched
               </div>
             </div>
-            <span class="status-badge status-${p.status || 'pending'}">${p.status || 'open'}</span>
+            <span class="status-badge status-${status}">${status}</span>
           </div>
-        `;
-      }).join('');
-    }
-    
+          ${statusBanner}
+        </div>
+      `;
+    }).join('');
+
     document.getElementById('dashContent').innerHTML = html;
   }
 </script>
