@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signing you in... — ONCORE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="images/oncore-logo.svg">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  }
+  .callback-card {
+    background: white;
+    padding: 48px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    text-align: center;
+    max-width: 420px;
+  }
+  .callback-card img { height: 50px; margin-bottom: 24px; }
+  .spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid #e0e0e0;
+    border-top-color: #2d5a3d;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 24px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .callback-card h2 { margin: 0 0 8px; color: #1a1a1a; }
+  .callback-card p { color: #666; margin: 0; }
+  .error-box {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 16px;
+    font-size: 14px;
+    display: none;
+  }
+  .error-box a { color: #721c24; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="callback-card">
+  <img src="images/oncore-logo.svg" alt="ONCORE">
+  <div class="spinner" id="spinner"></div>
+  <h2 id="title">Signing you in...</h2>
+  <p id="subtitle">Please wait a moment.</p>
+  <div class="error-box" id="errorBox"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script>
+  (async () => {
+    try {
+      // Wait for Supabase to process the URL hash
+      await new Promise(r => setTimeout(r, 800));
+      
+      const { data: { session }, error } = await supabaseClient.auth.getSession();
+      
+      if (error) throw error;
+      
+      if (!session) {
+        const hash = window.location.hash;
+        if (hash.includes('error')) {
+          const params = new URLSearchParams(hash.substring(1));
+          throw new Error(params.get('error_description') || 'Authentication failed');
+        }
+        throw new Error('No active session. Please try logging in again.');
+      }
+      
+      const profile = await getCurrentProfile();
+      
+      // Check for pending application/project from before login
+      const pendingApp = localStorage.getItem('pendingApplication');
+      const pendingProj = localStorage.getItem('pendingProject');
+      
+      if (pendingApp) {
+        document.getElementById('title').textContent = 'Submitting your application...';
+        document.getElementById('subtitle').textContent = 'Almost done!';
+        
+        try {
+          const data = JSON.parse(pendingApp);
+          const { error: appErr } = await supabaseClient.from('applications').insert({
+            student_id: session.user.id,
+            discipline: data.disciplines[0],
+            disciplines: data.disciplines,
+            skills: data.skills,
+            year_of_study: data.year_of_study,
+            gpa: data.gpa,
+            publications: data.publications,
+            research_interest: data.research_interest,
+            notes: `Phone: ${data.phone} | Nationality: ${data.nationality} | University: ${data.university} | Program: ${data.program} | Experience: ${data.experience} | Hours: ${data.hours} | LinkedIn: ${data.linkedin} | ORCID: ${data.orcid}`,
+            status: 'pending'
+          });
+          
+          if (appErr) console.error('App insert error:', appErr);
+          localStorage.removeItem('pendingApplication');
+        } catch (e) {
+          console.error('Pending app submission failed:', e);
+        }
+      }
+      
+      if (pendingProj) {
+        document.getElementById('title').textContent = 'Posting your project...';
+        document.getElementById('subtitle').textContent = 'Almost done!';
+        
+        try {
+          const data = JSON.parse(pendingProj);
+          const { error: projErr } = await supabaseClient.from('projects').insert({
+            doctor_id: session.user.id,
+            title: data.title,
+            description: data.description,
+            discipline: data.discipline,
+            required_skills: data.required_skills,
+            min_year_of_study: data.min_year,
+            min_gpa: data.min_gpa,
+            notes: `Institution: ${data.institution} | Department: ${data.department} | Type: ${data.project_type} | Duration: ${data.duration} | Students Needed: ${data.students_needed} | Notes: ${data.notes}`,
+            status: 'pending'
+          });
+          
+          if (projErr) console.error('Project insert error:', projErr);
+          localStorage.removeItem('pendingProject');
+        } catch (e) {
+          console.error('Pending project submission failed:', e);
+        }
+      }
+      
+      document.getElementById('title').textContent = 'Welcome to ONCORE!';
+      document.getElementById('subtitle').textContent = 'Redirecting to your dashboard...';
+      
+      setTimeout(() => {
+        if (profile?.is_admin) {
+          window.location.href = 'admin.html';
+        } else {
+          window.location.href = 'dashboard.html';
+        }
+      }, 800);
+      
+    } catch (err) {
+      document.getElementById('spinner').style.display = 'none';
+      document.getElementById('title').textContent = 'Sign in failed';
+      document.getElementById('subtitle').textContent = '';
+      const errBox = document.getElementById('errorBox');
+      errBox.style.display = 'block';
+      errBox.innerHTML = `❌ ${err.message}<br><br><a href="login.html">← Back to login</a>`;
+    }
+  })();
+</script>
+
+</body>
+</html>

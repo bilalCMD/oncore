@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" role="img" aria-label="KFSHRC">
+  <defs>
+    <linearGradient id="kfshGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d6e4b"/>
+      <stop offset="100%" stop-color="#1a8a5f"/>
+    </linearGradient>
+  </defs>
+  <!-- Crescent + star icon -->
+  <g transform="translate(8,12)">
+    <circle cx="28" cy="28" r="27" fill="url(#kfshGrad)"/>
+    <!-- Crescent moon (subtle) -->
+    <path d="M 18 28 a 12 12 0 1 0 16 -10 a 9 9 0 1 1 -16 10 z" fill="#ffffff" opacity="0.95"/>
+    <!-- Small star -->
+    <circle cx="36" cy="22" r="2.5" fill="#ffffff"/>
+  </g>
+  <!-- Text lockup -->
+  <g font-family="Inter, sans-serif" fill="#0d6e4b">
+    <text x="74" y="32" font-size="17" font-weight="700" letter-spacing="0.5">KFSHRC</text>
+    <text x="74" y="48" font-size="7" font-weight="500" letter-spacing="0.4" fill="#5a7368">King Faisal Specialist Hospital</text>
+    <text x="74" y="58" font-size="7" font-weight="500" letter-spacing="0.4" fill="#5a7368">&amp; Research Centre</text>
+  </g>
+</svg>

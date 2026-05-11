@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ONCORE — Oncology Collaboration for Research &amp; Excellence</title>
+<meta name="description" content="ONCORE — a structured research-matching program connecting Alfaisal medical students with leading oncology specialists at King Faisal Specialist Hospital & Research Centre.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="images/oncore-logo.svg">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ═══════════ NAVIGATION ═══════════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <img src="images/oncore-logo.svg" alt="ONCORE Logo" class="brand-logo">
+      <div class="brand-text">
+        <span class="brand-name">ONCORE</span>
+        <span class="brand-tag">Oncology Collaboration for Research &amp; Excellence</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="research.html" class="nav-link">Research</a>
+      <a href="doctor-requirements.html" class="nav-link">For Faculty</a>
+      <a href="student-application.html" class="nav-link">For Students</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="login.html" class="nav-link" id="headerLoginBtn" style="display:flex;align-items:center;gap:6px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+        Login
+      </a>
+      <div id="headerUserMenu" style="display:none;gap:12px;align-items:center;"></div>
+      <a href="doctor-requirements.html" class="btn btn-primary">Post a Project</a>
+    </div>
+    <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="nav-link active">Home</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="research.html" class="nav-link">Research</a>
+    <a href="doctor-requirements.html" class="nav-link">For Faculty</a>
+    <a href="student-application.html" class="nav-link">For Students</a>
+    <a href="contact.html" class="nav-link">Contact</a>
+    <a href="doctor-requirements.html" class="btn btn-primary">Post a Project</a>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-pill">
+          <span class="hero-pill-dot">✦</span>
+          ONCORE · In collaboration with KFSHRC
+        </div>
+        <h1>Where oncology<br>research meets <em>willing minds.</em></h1>
+        <p class="hero-lead">ONCORE — Oncology Collaboration for Research &amp; Excellence — is a structured research-matching program bridging motivated Alfaisal medical students with leading oncology specialists at King Faisal Specialist Hospital &amp; Research Centre's Centre of Excellence in Oncology.</p>
+        <div class="hero-cta">
+          <a href="doctor-requirements.html" class="btn btn-primary btn-large">
+            Post a Research Project
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="student-application.html" class="btn btn-outline btn-large">I'm a Student</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num">4</div>
+            <div class="hero-stat-label">Core Disciplines</div>
+          </div>
+          <div>
+            <div class="hero-stat-num" style="color: var(--accent-green);">KFSHRC</div>
+            <div class="hero-stat-label">Centre of Excellence</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">Alfaisal</div>
+            <div class="hero-stat-label">Medical Students</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-glow"></div>
+        <div class="hero-rings"></div>
+        <div class="hero-circle"></div>
+        <div class="hero-logo-display">
+          <img src="images/oncore-logo.svg" alt="ONCORE">
+        </div>
+        <div class="float-card float-card-1">
+          <div class="float-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          </div>
+          <div>
+            <div class="float-label">Project Matched</div>
+            <div class="float-sub">Breast Cancer · KFSHRC</div>
+          </div>
+        </div>
+        <div class="float-card float-card-2 green-accent">
+          <div class="float-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+          </div>
+          <div>
+            <div class="float-label">3 New Applicants</div>
+            <div class="float-sub">Year 4 · Alfaisal MD</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOUR STEPS ═══════════ -->
+<section class="section feature-section">
+  <div class="container">
+    <div class="section-header" style="margin-bottom: 56px;">
+      <div class="eyebrow">The Process</div>
+      <div class="heading-band-wrap">
+        <h2 class="heading-band">Four steps from <em>question to collaboration.</em></h2>
+      </div>
+      <p class="section-subtitle">A structured process modelled after academic recruitment — faculty post their research, students apply, our coordinators shortlist, and research begins.</p>
+    </div>
+
+    <div class="feature-grid">
+
+      <div class="feature-card">
+        <div class="feature-num">Step 01</div>
+        <div class="feature-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
+        </div>
+        <h3>Faculty Posts</h3>
+        <p>Oncologists submit their research project, required skills, expected duration, and the kind of student they're looking for.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-num">Step 02</div>
+        <div class="feature-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        </div>
+        <h3>Students Apply</h3>
+        <p>Members submit their CV, year of study, prior research experience, and the specific projects they're interested in.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-num">Step 03</div>
+        <div class="feature-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+        </div>
+        <h3>ONCORE Shortlists</h3>
+        <p>Our research coordinators review applicants and shortlist the best matches based on the faculty's stated requirements.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-num">Step 04</div>
+        <div class="feature-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>Research Begins</h3>
+        <p>The faculty member reviews the shortlist, picks their team, and a structured collaboration begins with clear deliverables.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ DISCIPLINES (purple bg, alternating boxes) ═══════════ -->
+<section class="disciplines-section">
+  <div class="container">
+    <div class="section-header" style="margin-bottom: 0;">
+      <div class="eyebrow">Our Four Core Disciplines</div>
+      <div class="heading-band-wrap">
+        <h2 class="heading-band">Working across <em>oncology's frontline.</em></h2>
+      </div>
+      <p class="section-subtitle">ONCORE operates across four core oncology disciplines at KFSHRC. Through close collaboration with consultants and research teams, student placements are tailored to each department's specific needs.</p>
+    </div>
+
+    <div class="disciplines-grid">
+
+      <!-- 01: Medical Oncology — PURPLE -->
+      <div class="disc-card purple">
+        <div class="disc-num">01 </div>
+        <div class="disc-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 14c1.5-1.5 3-3.5 3-5.5A5.5 5.5 0 0016.5 3c-1.5 0-3 .5-4.5 2-1.5-1.5-3-2-4.5-2A5.5 5.5 0 002 8.5c0 2 1.5 4 3 5.5l7 7z"/><path d="M5 8h4l1-2 2 4 1-2h4"/></svg>
+        </div>
+        <h3>Medical Oncology</h3>
+        <p>Chemotherapy protocols, immunotherapy, targeted therapy, and clinical trial outcomes.</p>
+      </div>
+
+      <!-- 02: Radiation Oncology — WHITE -->
+      <div class="disc-card white">
+        <div class="disc-num">02 </div>
+        <div class="disc-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/></svg>
+        </div>
+        <h3>Radiation Oncology</h3>
+        <p>Treatment planning, outcomes research, advanced techniques like SBRT and IMRT.</p>
+      </div>
+
+      <!-- 03: Hematology-Oncology — PURPLE -->
+      <div class="disc-card purple">
+        <div class="disc-num">03 </div>
+        <div class="disc-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="18" r="3"/><line x1="9" y1="6" x2="15" y2="6"/><line x1="9" y1="18" x2="15" y2="18"/><line x1="6" y1="9" x2="6" y2="15"/><line x1="18" y1="9" x2="18" y2="15"/></svg>
+        </div>
+        <h3>Hematology-Oncology</h3>
+        <p>Leukemia, lymphoma, myeloma, transplant outcomes, and translational research.</p>
+      </div>
+
+      <!-- 04: Palliative Care — WHITE -->
+      <div class="disc-card white">
+        <div class="disc-num">04 </div>
+        <div class="disc-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+        <h3>Palliative Care</h3>
+        <p>Quality of life research, symptom management, advance care planning, and patient outcomes.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ COLLABORATION SHOWCASE ═══════════ -->
+<section class="collab-section">
+  <div class="container">
+    <div class="collab-header">
+      <div class="eyebrow green">A Strategic Partnership</div>
+      <div class="heading-band-wrap">
+        <h2 class="heading-band green-band">Backed by world-class <em>institutions in Riyadh.</em></h2>
+      </div>
+    </div>
+
+    <div class="collab-card">
+      <div class="collab-logos-row">
+        <a href="http://kfshrc.edu.sa/" target="_blank" rel="noopener" class="collab-logo-card">
+          <img src="images/kfshrc-logo.png" alt="King Faisal Specialist Hospital &amp; Research Centre">
+          <div class="collab-logo-name">KFSHRC</div>
+          <div class="collab-logo-sub">Centre of Excellence in Oncology</div>
+        </a>
+        <div class="collab-x">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/>
+          </svg>
+        </div>
+        <a href="https://www.alfaisal.edu/" target="_blank" rel="noopener" class="collab-logo-card">
+          <img src="images/alfaisal-logo.png" alt="Alfaisal University">
+          <div class="collab-logo-name">Alfaisal University</div>
+          <div class="collab-logo-sub">College of Medicine, Riyadh</div>
+        </a>
+      </div>
+
+      <div class="collab-content">
+        <p>ONCORE operates under a unique partnership between <strong>Alfaisal University's College of Medicine</strong> and the <strong>King Faisal Specialist Hospital &amp; Research Centre</strong> — ranked 2nd in the Middle East by Newsweek and treating approximately 25% of Saudi Arabia's cancer cases annually.</p>
+        <p>This collaboration ensures every research placement happens at a Centre of Excellence — with mentorship from leading oncologists and exposure to cutting-edge clinical work.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px; margin-bottom: 32px;">
+      <div style="max-width: 620px;">
+        <div class="eyebrow">Open Calls</div>
+        <h2 class="section-title">Recently posted <em>opportunities.</em></h2>
+        <p class="section-subtitle">A snapshot of active research seeking student collaborators across our partner hospitals.</p>
+      </div>
+      <a href="research.html" class="btn btn-outline">View all projects →</a>
+    </div>
+
+    <div class="research-grid">
+
+      <article class="research-card">
+        <div class="research-head">
+          <div class="doctor-info">
+            <div class="avatar" style="background: #50508c;">FA</div>
+            <div>
+              <div class="doc-name">Dr. Fatima Al-Zahrani</div>
+              <div class="doc-inst">KFSH&amp;RC · Medical Oncology</div>
+            </div>
+          </div>
+          <span class="status status-open">● Open</span>
+        </div>
+        <h3 class="research-title">Biomarker discovery in triple-negative breast cancer</h3>
+        <p class="research-desc">A retrospective analysis using RNA-seq data from TNBC patients treated at KFSH&amp;RC over the past 5 years. Looking for help with literature review and basic statistical analysis.</p>
+        <div class="tag-row">
+          <span class="tag">Breast Cancer</span>
+          <span class="tag">Bioinformatics</span>
+          <span class="tag">Retrospective</span>
+        </div>
+        <div class="research-meta">
+          <div class="meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            12 months
+          </div>
+          <div class="meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/></svg>
+            2 spots
+          </div>
+          <a href="student-application.html" class="btn btn-primary" style="padding: 7px 16px; font-size: 0.8rem;">Apply</a>
+        </div>
+      </article>
+
+      <article class="research-card">
+        <div class="research-head">
+          <div class="doctor-info">
+            <div class="avatar" style="background: #7878a8;">OG</div>
+            <div>
+              <div class="doc-name">Dr. Omar Al-Ghamdi</div>
+              <div class="doc-inst">KAUH · Radiation Oncology</div>
+            </div>
+          </div>
+          <span class="status status-open">● Open</span>
+        </div>
+        <h3 class="research-title">Outcomes of SBRT in early-stage NSCLC: a Saudi cohort</h3>
+        <p class="research-desc">Retrospective study examining survival and toxicity outcomes in stage I non-small cell lung cancer patients treated with stereotactic body radiotherapy.</p>
+        <div class="tag-row">
+          <span class="tag">Lung Cancer</span>
+          <span class="tag">Radiation</span>
+          <span class="tag">Survival Analysis</span>
+        </div>
+        <div class="research-meta">
+          <div class="meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            6 months
+          </div>
+          <div class="meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/></svg>
+            1 spot
+          </div>
+          <a href="student-application.html" class="btn btn-primary" style="padding: 7px 16px; font-size: 0.8rem;">Apply</a>
+        </div>
+      </article>
+
+      <article class="research-card">
+        <div class="research-head">
+          <div class="doctor-info">
+            <div class="avatar" style="background: #b89dd9;">HS</div>
+            <div>
+              <div class="doc-name">Dr. Hana Al-Shehri</div>
+              <div class="doc-inst">PSMMC · Pediatric Oncology</div>
+            </div>
+          </div>
+          <span class="status status-soon">◐ Opening soon</span>
+        </div>
+        <h3 class="research-title">Late effects of chemotherapy in pediatric ALL survivors</h3>
+        <p class="research-desc">Cross-sectional study assessing cardiac, endocrine, and neurocognitive late effects in children who completed treatment for acute lymphoblastic leukemia 5+ years ago.</p>
+        <div class="tag-row">
+          <span class="tag">Leukemia</span>
+          <span class="tag">Pediatrics</span>
+          <span class="tag">Survivorship</span>
+        </div>
+        <div class="research-meta">
+          <div class="meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            9 months
+          </div>
+          <div class="meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/></svg>
+            2 spots
+          </div>
+          <a href="student-application.html" class="btn btn-primary" style="padding: 7px 16px; font-size: 0.8rem;">Apply</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+<!-- ═══════════ CTA ═══════════ -->
+<section class="cta-section">
+  <div class="cta-deco-1"></div>
+  <div class="cta-deco-2"></div>
+  <div class="container cta-inner">
+    <h2>Ready to <em>contribute</em> to cancer research?</h2>
+    <p>Join ONCORE and become part of a growing network of students and clinicians changing how cancer research happens in the Kingdom.</p>
+    <div class="cta-buttons">
+      <a href="student-application.html" class="btn btn-on-dark btn-large">Submit a Student Profile</a>
+      <a href="doctor-requirements.html" class="btn btn-outline btn-large" style="color: white; border-color: rgba(255,255,255,0.4);">Post a Project</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand">
+          <img src="images/oncore-logo.svg" alt="ONCORE Logo" class="brand-logo">
+          <div class="brand-text">
+            <span class="brand-name">ONCORE</span>
+            <span class="brand-tag">Oncology Collaboration for Research &amp; Excellence</span>
+          </div>
+        </div>
+        <p>A structured research-matching program connecting Alfaisal medical students with oncology specialists at King Faisal Specialist Hospital &amp; Research Centre.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>For Faculty</h4>
+        <ul>
+          <li><a href="doctor-requirements.html">Post a Project</a></li>
+          <li><a href="contact.html">Faculty FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>For Students</h4>
+        <ul>
+          <li><a href="student-application.html">Apply</a></li>
+          <li><a href="research.html">Open Projects</a></li>
+          <li><a href="about.html">About ONCORE</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 ONCORE · Oncology Collaboration for Research &amp; Excellence · Alfaisal University</p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/oncoig.au" class="social-link" aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" class="social-link" aria-label="LinkedIn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="mailto:OncologyIG@alfaisal.edu" class="social-link" aria-label="Email">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">
+  <span class="toast-msg">Done.</span>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

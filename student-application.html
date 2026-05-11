@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Students — ONCORE</title>
+<meta name="description" content="Submit your profile and apply for oncology research opportunities at ONCORE.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="images/oncore-logo.svg">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <img src="images/oncore-logo.svg" alt="ONCORE Logo" class="brand-logo">
+      <div class="brand-text">
+        <span class="brand-name">ONCORE</span>
+        <span class="brand-tag">Oncology Collaboration for Research &amp; Excellence</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="research.html" class="nav-link">Research</a>
+      <a href="doctor-requirements.html" class="nav-link">For Faculty</a>
+      <a href="student-application.html" class="nav-link active">For Students</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="login.html" class="nav-link" id="headerLoginBtn" style="display:flex;align-items:center;gap:6px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+        Login
+      </a>
+      <div id="headerUserMenu" style="display:none;gap:12px;align-items:center;"></div>
+    </div>
+    <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<section class="form-hero">
+  <div class="container">
+    <a href="index.html" class="back-link">← Back to home</a>
+    <h1>Submit Your Profile</h1>
+    <p>Tell us about yourself, your academic background, and your research interests. We'll match your profile against open faculty projects and notify you when there's a fit.</p>
+    <div id="loginNotice" style="display:none;background:#fff3cd;border:1px solid #ffc107;padding:12px 16px;border-radius:8px;margin-top:16px;color:#856404;">
+      💡 <strong>Tip:</strong> <a href="login.html" style="color:#856404;text-decoration:underline;">Login</a> first to track your application. Or just submit below — we'll auto-create your account using your email.
+    </div>
+  </div>
+</section>
+
+<div class="form-body">
+  <form id="studentForm" class="form-card">
+
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-title-num">1</span> Personal Details</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name <span class="required">*</span></label>
+          <input type="text" id="fullName" placeholder="Your full name" required>
+        </div>
+        <div class="form-group">
+          <label>Email <span class="required">*</span></label>
+          <input type="email" id="email" placeholder="you@alfaisal.edu" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Phone / WhatsApp <span class="required">*</span></label>
+          <input type="tel" id="phone" placeholder="+966 5x xxx xxxx" required>
+        </div>
+        <div class="form-group">
+          <label>Nationality</label>
+          <select id="nationality">
+            <option>Saudi</option><option>Pakistani</option><option>Egyptian</option>
+            <option>Jordanian</option><option>Syrian</option><option>Yemeni</option>
+            <option>Sudanese</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-title-num">2</span> Academic Background</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>University <span class="required">*</span></label>
+          <select id="university" required>
+            <option selected>Alfaisal University</option>
+            <option>Other (specify in notes)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Program <span class="required">*</span></label>
+          <select id="program" required>
+            <option>Medicine (MBBS / MD)</option>
+            <option>Pharmacy</option><option>Biomedical Sciences</option>
+            <option>Public Health</option><option>Nursing</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row triple">
+        <div class="form-group">
+          <label>Current Year <span class="required">*</span></label>
+          <select id="yearOfStudy" required>
+            <option>Year 1</option><option>Year 2</option><option>Year 3</option>
+            <option selected>Year 4</option><option>Year 5</option>
+            <option>Year 6 / Intern</option><option>Resident</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>GPA</label>
+          <input type="text" id="gpa" placeholder="e.g., 3.8 / 4.0">
+        </div>
+        <div class="form-group">
+          <label>Expected Graduation</label>
+          <input type="text" id="graduation" placeholder="e.g., 2027">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-title-num">3</span> Research Background</div>
+      <div class="form-row single">
+        <div class="form-group">
+          <label>Previous Research Experience</label>
+          <textarea id="experience" rows="4" placeholder="Briefly describe any previous research projects or relevant experience."></textarea>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Publications / Posters</label>
+          <input type="number" id="publications" min="0" value="0">
+        </div>
+        <div class="form-group">
+          <label>Conference Presentations</label>
+          <input type="number" id="conferences" min="0" value="0">
+        </div>
+      </div>
+      <div class="form-row single">
+        <div class="form-group">
+          <label>Discipline of Interest <span class="required">*</span></label>
+          <div class="checkbox-grid" style="grid-template-columns: 1fr 1fr;">
+            <label class="checkbox-row"><input type="checkbox" name="discipline" value="Medical Oncology"> <span>Medical Oncology</span></label>
+            <label class="checkbox-row"><input type="checkbox" name="discipline" value="Radiation Oncology"> <span>Radiation Oncology</span></label>
+            <label class="checkbox-row"><input type="checkbox" name="discipline" value="Hematology-Oncology"> <span>Hematology-Oncology</span></label>
+            <label class="checkbox-row"><input type="checkbox" name="discipline" value="Palliative Care"> <span>Palliative Care</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="form-row single">
+        <div class="form-group">
+          <label>Skills</label>
+          <div class="checkbox-grid">
+            <label class="checkbox-row"><input type="checkbox" name="skill" value="Literature Review"> <span>Literature Review</span></label>
+            <label class="checkbox-row"><input type="checkbox" name="skill" value="SPSS"> <span>SPSS</span></label>
+            <label class="checkbox-row"><input type="checkbox" name="skill" value="R / Python"> <span>R / Python</span></label>
+            <label class="checkbox-row"><input type="checkbox" name="skill" value="Excel / REDCap"> <span>Excel / REDCap</span></label>
+            <label class="checkbox-row"><input type="checkbox" name="skill" value="Medical Writing"> <span>Medical Writing</span></label>
+            <label class="checkbox-row"><input type="checkbox" name="skill" value="Lab Techniques"> <span>Lab Techniques</span></label>
+            <label class="checkbox-row"><input type="checkbox" name="skill" value="Systematic Review"> <span>Systematic Review</span></label>
+            <label class="checkbox-row"><input type="checkbox" name="skill" value="EndNote / Zotero"> <span>EndNote / Zotero</span></label>
+            <label class="checkbox-row"><input type="checkbox" name="skill" value="Patient Communication"> <span>Patient Communication</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-title-num">4</span> Profile &amp; Motivation</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>LinkedIn Profile</label>
+          <input type="url" id="linkedin" placeholder="https://linkedin.com/in/yourname">
+        </div>
+        <div class="form-group">
+          <label>ORCID / ResearchGate</label>
+          <input type="url" id="orcid" placeholder="https://orcid.org/...">
+        </div>
+      </div>
+      <div class="form-row single">
+        <div class="form-group">
+          <label>Why oncology? / Research Interest <span class="required">*</span></label>
+          <textarea id="researchInterest" rows="4" placeholder="A short paragraph (3-5 sentences) explaining your motivation." required></textarea>
+        </div>
+      </div>
+      <div class="form-row single">
+        <div class="form-group">
+          <label>Hours per week available</label>
+          <select id="hours">
+            <option value="5-10">5-10 hours / week</option>
+            <option value="10-15" selected>10-15 hours / week</option>
+            <option value="15-20">15-20 hours / week</option>
+            <option value="20+">20+ hours / week</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-submit">
+      <a href="index.html" class="btn btn-ghost">Cancel</a>
+      <button type="submit" class="btn btn-primary btn-large" id="submitBtn">Submit Application</button>
+    </div>
+    
+    <div id="formMessage" style="margin-top:20px;padding:16px;border-radius:8px;display:none;"></div>
+  </form>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 2025 ONCORE · Alfaisal University</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/main.js"></script>
+<script>
+  (async () => {
+    const profile = await getCurrentProfile();
+    if (profile) {
+      document.getElementById('fullName').value = profile.full_name || '';
+      document.getElementById('email').value = profile.email || '';
+      document.getElementById('email').readOnly = true;
+    } else {
+      document.getElementById('loginNotice').style.display = 'block';
+    }
+  })();
+  
+  document.getElementById('studentForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const submitBtn = document.getElementById('submitBtn');
+    const formMessage = document.getElementById('formMessage');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+    
+    const disciplines = Array.from(document.querySelectorAll('input[name="discipline"]:checked')).map(c => c.value);
+    const skills = Array.from(document.querySelectorAll('input[name="skill"]:checked')).map(c => c.value);
+    
+    if (disciplines.length === 0) {
+      formMessage.style.cssText = 'display:block;background:#f8d7da;color:#721c24;padding:16px;border-radius:8px;';
+      formMessage.textContent = '❌ Please select at least one discipline of interest.';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Application';
+      return;
+    }
+    
+    const email = document.getElementById('email').value.trim().toLowerCase();
+    const fullName = document.getElementById('fullName').value.trim();
+    
+    try {
+      let user = await getCurrentUser();
+      let studentId = user?.id;
+      
+      if (!user) {
+        // Save form data to localStorage so we can submit it after OTP verification
+        const pendingData = {
+          email, fullName,
+          phone: document.getElementById('phone').value,
+          nationality: document.getElementById('nationality').value,
+          university: document.getElementById('university').value,
+          program: document.getElementById('program').value,
+          year_of_study: document.getElementById('yearOfStudy').value,
+          gpa: document.getElementById('gpa').value,
+          graduation: document.getElementById('graduation').value,
+          experience: document.getElementById('experience').value,
+          publications: parseInt(document.getElementById('publications').value) || 0,
+          conferences: parseInt(document.getElementById('conferences').value) || 0,
+          disciplines, skills,
+          linkedin: document.getElementById('linkedin').value,
+          orcid: document.getElementById('orcid').value,
+          research_interest: document.getElementById('researchInterest').value,
+          hours: document.getElementById('hours').value
+        };
+        localStorage.setItem('pendingApplication', JSON.stringify(pendingData));
+        localStorage.setItem('pendingSignupRole', 'student');
+        localStorage.setItem('pendingSignupName', fullName);
+        localStorage.setItem('pendingSignupEmail', email);
+        
+        // Redirect to signup page which will send OTP and handle verification
+        formMessage.style.cssText = 'display:block;background:#d4edda;color:#155724;padding:16px;border-radius:8px;';
+        formMessage.innerHTML = `✅ <strong>Form saved!</strong> Redirecting you to verify your email...`;
+        submitBtn.textContent = 'Redirecting...';
+        
+        setTimeout(() => {
+          window.location.href = 'signup.html?from=application';
+        }, 1500);
+        return;
+      }
+      
+      // User is logged in — submit application directly
+      const { error: appError } = await supabaseClient.from('applications').insert({
+        student_id: studentId,
+        discipline: disciplines[0],
+        disciplines: disciplines,
+        skills: skills,
+        year_of_study: document.getElementById('yearOfStudy').value,
+        gpa: document.getElementById('gpa').value,
+        publications: parseInt(document.getElementById('publications').value) || 0,
+        research_interest: document.getElementById('researchInterest').value,
+        notes: `Phone: ${document.getElementById('phone').value} | Nationality: ${document.getElementById('nationality').value} | Program: ${document.getElementById('program').value} | Experience: ${document.getElementById('experience').value} | Hours: ${document.getElementById('hours').value} | LinkedIn: ${document.getElementById('linkedin').value} | ORCID: ${document.getElementById('orcid').value}`,
+        status: 'pending'
+      });
+      
+      if (appError) throw appError;
+      
+      formMessage.style.cssText = 'display:block;background:#d4edda;color:#155724;padding:16px;border-radius:8px;';
+      formMessage.innerHTML = `✅ <strong>Application submitted!</strong> Our team will review and notify you. <a href="dashboard.html" style="color:#155724;font-weight:600;">View dashboard →</a>`;
+      submitBtn.textContent = 'Submitted ✓';
+      
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 2500);
+      
+    } catch (err) {
+      formMessage.style.cssText = 'display:block;background:#f8d7da;color:#721c24;padding:16px;border-radius:8px;';
+      formMessage.textContent = '❌ ' + err.message;
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Application';
+    }
+  });
+</script>
+
+</body>
+</html>

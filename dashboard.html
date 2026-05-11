@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Dashboard — ONCORE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="images/oncore-logo.svg">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .dash-wrapper { padding: 60px 24px; max-width: 1100px; margin: 0 auto; }
+  .dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .dash-header h1 { margin: 0; font-size: 32px; }
+  .dash-header .role-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: #e8f5e9;
+    color: #2d5a3d;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-left: 12px;
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .stat-card {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border: 1px solid #f0f0f0;
+  }
+  .stat-card .stat-label {
+    font-size: 12px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .stat-card .stat-num { font-size: 32px; font-weight: 700; color: #1a1a1a; }
+  .section-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 32px 0 16px;
+    color: #1a1a1a;
+  }
+  .item-card {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .item-card h3 { margin: 0 0 8px; font-size: 17px; color: #1a1a1a; }
+  .item-card .meta {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  .item-card .desc {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.5;
+  }
+  .status-badge {
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .status-pending { background: #fff3cd; color: #856404; }
+  .status-matched, .status-approved { background: #d4edda; color: #155724; }
+  .status-rejected { background: #f8d7da; color: #721c24; }
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+    background: #f9f9f9;
+    border-radius: 12px;
+  }
+  .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
+  .match-score {
+    display: inline-block;
+    padding: 4px 10px;
+    background: #f0f7f3;
+    color: #2d5a3d;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    margin-left: 8px;
+  }
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAVIGATION ═══════════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <img src="images/oncore-logo.svg" alt="ONCORE Logo" class="brand-logo">
+      <div class="brand-text">
+        <span class="brand-name">ONCORE</span>
+        <span class="brand-tag">Oncology Collaboration for Research &amp; Excellence</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="research.html" class="nav-link">Research</a>
+      <a href="dashboard.html" class="nav-link active">Dashboard</a>
+      <div id="headerUserMenu" style="display:flex;gap:12px;align-items:center;"></div>
+    </div>
+  </div>
+</nav>
+
+<div class="dash-wrapper">
+  <div class="dash-header">
+    <div>
+      <h1>Welcome, <span id="userName">...</span><span class="role-badge" id="roleBadge">...</span></h1>
+      <p style="color:#666;margin:8px 0 0;" id="userEmail">...</p>
+    </div>
+  </div>
+  
+  <div id="dashContent" class="loading">Loading your dashboard...</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script>
+  (async () => {
+    const user = await getCurrentUser();
+    if (!user) {
+      window.location.href = 'login.html';
+      return;
+    }
+    
+    const profile = await getCurrentProfile();
+    if (!profile) {
+      document.getElementById('dashContent').innerHTML = '<div class="empty-state"><div class="icon">⚠️</div>Profile not found. Please contact admin.</div>';
+      return;
+    }
+    
+    // If admin, redirect to admin panel
+    if (profile.is_admin) {
+      window.location.href = 'admin.html';
+      return;
+    }
+    
+    document.getElementById('userName').textContent = profile.full_name || profile.email.split('@')[0];
+    document.getElementById('userEmail').textContent = profile.email;
+    document.getElementById('roleBadge').textContent = profile.role;
+    
+    if (profile.role === 'student') {
+      await renderStudentDashboard(profile);
+    } else if (profile.role === 'doctor') {
+      await renderDoctorDashboard(profile);
+    } else {
+      document.getElementById('dashContent').innerHTML = '<div class="empty-state">Unknown role.</div>';
+    }
+  })();
+  
+  async function renderStudentDashboard(profile) {
+    const { data: apps, error } = await supabaseClient
+      .from('applications')
+      .select('*, projects(title, discipline, doctor_id, profiles!projects_doctor_id_fkey(full_name))')
+      .eq('student_id', profile.id)
+      .order('created_at', { ascending: false });
+    
+    if (error) {
+      document.getElementById('dashContent').innerHTML = `<div class="empty-state"><div class="icon">⚠️</div>${error.message}</div>`;
+      return;
+    }
+    
+    const total = apps?.length || 0;
+    const pending = apps?.filter(a => a.status === 'pending').length || 0;
+    const matched = apps?.filter(a => a.status === 'matched' || a.status === 'approved').length || 0;
+    const rejected = apps?.filter(a => a.status === 'rejected').length || 0;
+    
+    let html = `
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-label">Total Applications</div><div class="stat-num">${total}</div></div>
+        <div class="stat-card"><div class="stat-label">Pending Review</div><div class="stat-num">${pending}</div></div>
+        <div class="stat-card"><div class="stat-label">Matched</div><div class="stat-num" style="color:#2d5a3d;">${matched}</div></div>
+        <div class="stat-card"><div class="stat-label">Rejected</div><div class="stat-num" style="color:#999;">${rejected}</div></div>
+      </div>
+      
+      <div style="display:flex;justify-content:space-between;align-items:center;margin:32px 0 16px;">
+        <h2 class="section-title" style="margin:0;">My Applications</h2>
+        <a href="student-application.html" class="btn btn-primary">+ New Application</a>
+      </div>
+    `;
+    
+    if (total === 0) {
+      html += `
+        <div class="empty-state">
+          <div class="icon">📝</div>
+          <h3 style="margin:0 0 8px;color:#666;">No applications yet</h3>
+          <p style="margin:0 0 16px;">Submit your first research application to get started.</p>
+          <a href="student-application.html" class="btn btn-primary">Apply Now</a>
+        </div>
+      `;
+    } else {
+      html += apps.map(a => {
+        const project = a.projects || {};
+        const doctor = project.profiles?.full_name || 'Unknown';
+        return `
+          <div class="item-card">
+            <div style="flex:1;">
+              <h3>${a.research_interest || 'General Application'}</h3>
+              <div class="meta">
+                ${project.title ? `Project: <strong>${project.title}</strong> · ` : ''}
+                Discipline: <strong>${a.discipline || project.discipline || 'N/A'}</strong>
+                ${a.match_score !== null ? `<span class="match-score">Match: ${a.match_score}/100</span>` : ''}
+              </div>
+              <div class="desc">Submitted ${new Date(a.created_at).toLocaleDateString()}</div>
+            </div>
+            <span class="status-badge status-${a.status}">${a.status}</span>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    document.getElementById('dashContent').innerHTML = html;
+  }
+  
+  async function renderDoctorDashboard(profile) {
+    const { data: projects, error: pErr } = await supabaseClient
+      .from('projects')
+      .select('*')
+      .eq('doctor_id', profile.id)
+      .order('created_at', { ascending: false });
+    
+    if (pErr) {
+      document.getElementById('dashContent').innerHTML = `<div class="empty-state"><div class="icon">⚠️</div>${pErr.message}</div>`;
+      return;
+    }
+    
+    // Fetch applications to doctor's projects
+    let allApps = [];
+    if (projects && projects.length > 0) {
+      const projectIds = projects.map(p => p.id);
+      const { data: apps } = await supabaseClient
+        .from('applications')
+        .select('*, profiles!applications_student_id_fkey(full_name, email)')
+        .in('project_id', projectIds);
+      allApps = apps || [];
+    }
+    
+    const totalProjects = projects?.length || 0;
+    const totalApps = allApps.length;
+    const matched = allApps.filter(a => a.status === 'matched' || a.status === 'approved').length;
+    
+    let html = `
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-label">My Projects</div><div class="stat-num">${totalProjects}</div></div>
+        <div class="stat-card"><div class="stat-label">Total Applications</div><div class="stat-num">${totalApps}</div></div>
+        <div class="stat-card"><div class="stat-label">Approved Matches</div><div class="stat-num" style="color:#2d5a3d;">${matched}</div></div>
+      </div>
+      
+      <div style="display:flex;justify-content:space-between;align-items:center;margin:32px 0 16px;">
+        <h2 class="section-title" style="margin:0;">My Research Projects</h2>
+        <a href="doctor-requirements.html" class="btn btn-primary">+ Post New Project</a>
+      </div>
+    `;
+    
+    if (totalProjects === 0) {
+      html += `
+        <div class="empty-state">
+          <div class="icon">🔬</div>
+          <h3 style="margin:0 0 8px;color:#666;">No projects posted yet</h3>
+          <p style="margin:0 0 16px;">Post your first research opportunity to start matching with students.</p>
+          <a href="doctor-requirements.html" class="btn btn-primary">Post a Project</a>
+        </div>
+      `;
+    } else {
+      html += projects.map(p => {
+        const projectApps = allApps.filter(a => a.project_id === p.id);
+        const projectMatched = projectApps.filter(a => a.status === 'matched' || a.status === 'approved').length;
+        return `
+          <div class="item-card">
+            <div style="flex:1;">
+              <h3>${p.title}</h3>
+              <div class="meta">
+                Discipline: <strong>${p.discipline}</strong> · 
+                Skills: ${(p.required_skills || []).slice(0,3).join(', ') || 'None specified'}
+              </div>
+              <div class="desc">${(p.description || '').slice(0, 200)}${(p.description || '').length > 200 ? '...' : ''}</div>
+              <div style="margin-top:12px;font-size:13px;color:#666;">
+                <strong>${projectApps.length}</strong> applications · 
+                <strong style="color:#2d5a3d;">${projectMatched}</strong> approved
+              </div>
+            </div>
+            <span class="status-badge status-${p.status || 'pending'}">${p.status || 'open'}</span>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    document.getElementById('dashContent').innerHTML = html;
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" role="img" aria-label="Alfaisal University">
+  <defs>
+    <linearGradient id="alfaisalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5b1a3a"/>
+      <stop offset="100%" stop-color="#7d2b54"/>
+    </linearGradient>
+  </defs>
+  <!-- Shield/crest icon -->
+  <g transform="translate(8,12)">
+    <path d="M 28 4 L 50 12 L 50 32 Q 50 46 28 56 Q 6 46 6 32 L 6 12 Z" fill="url(#alfaisalGrad)"/>
+    <!-- Inner accent -->
+    <path d="M 28 12 L 42 17 L 42 30 Q 42 40 28 47 Q 14 40 14 30 L 14 17 Z" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+    <!-- Letter A -->
+    <text x="28" y="38" font-family="Cormorant Garamond, Georgia, serif" font-size="22" font-weight="600" fill="#ffffff" text-anchor="middle">A</text>
+  </g>
+  <!-- Text lockup -->
+  <g font-family="Inter, sans-serif" fill="#5b1a3a">
+    <text x="74" y="32" font-size="17" font-weight="700" letter-spacing="0.3">Alfaisal</text>
+    <text x="74" y="48" font-size="7" font-weight="500" letter-spacing="0.4" fill="#7a5063">UNIVERSITY</text>
+    <text x="74" y="58" font-size="7" font-weight="500" letter-spacing="0.4" fill="#7a5063">Riyadh, Saudi Arabia</text>
+  </g>
+</svg>

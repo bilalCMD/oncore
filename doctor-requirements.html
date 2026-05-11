@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Faculty — ONCORE</title>
+<meta name="description" content="Post a research project and get matched with motivated medical students.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="images/oncore-logo.svg">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <img src="images/oncore-logo.svg" alt="ONCORE Logo" class="brand-logo">
+      <div class="brand-text">
+        <span class="brand-name">ONCORE</span>
+        <span class="brand-tag">Oncology Collaboration for Research &amp; Excellence</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="research.html" class="nav-link">Research</a>
+      <a href="doctor-requirements.html" class="nav-link active">For Faculty</a>
+      <a href="student-application.html" class="nav-link">For Students</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="login.html" class="nav-link" id="headerLoginBtn" style="display:flex;align-items:center;gap:6px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+        Login
+      </a>
+      <div id="headerUserMenu" style="display:none;gap:12px;align-items:center;"></div>
+    </div>
+    <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<section class="form-hero">
+  <div class="container">
+    <a href="index.html" class="back-link">← Back to home</a>
+    <h1>Post a Research Project</h1>
+    <p>Tell us about your research opportunity. We'll match it against student profiles and forward you the strongest candidates with our recommendations.</p>
+    <div id="loginNotice" style="display:none;background:#fff3cd;border:1px solid #ffc107;padding:12px 16px;border-radius:8px;margin-top:16px;color:#856404;">
+      💡 <strong>Tip:</strong> <a href="login.html" style="color:#856404;text-decoration:underline;">Login</a> first to manage your projects. Or submit below — we'll auto-create your account.
+    </div>
+  </div>
+</section>
+
+<div class="form-body">
+  <form id="doctorForm" class="form-card">
+
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-title-num">1</span> Faculty Details</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name <span class="required">*</span></label>
+          <input type="text" id="fullName" placeholder="Dr. Your Name" required>
+        </div>
+        <div class="form-group">
+          <label>Email <span class="required">*</span></label>
+          <input type="email" id="email" placeholder="you@kfshrc.edu.sa" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Institution <span class="required">*</span></label>
+          <select id="institution" required>
+            <option>King Faisal Specialist Hospital &amp; Research Centre (KFSHRC)</option>
+            <option>Alfaisal University</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Department / Specialty <span class="required">*</span></label>
+          <input type="text" id="department" placeholder="e.g., Medical Oncology" required>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-title-num">2</span> Project Details</div>
+      <div class="form-row single">
+        <div class="form-group">
+          <label>Project Title <span class="required">*</span></label>
+          <input type="text" id="projectTitle" placeholder="e.g., Outcomes of Immunotherapy in Stage IV NSCLC" required>
+        </div>
+      </div>
+      <div class="form-row single">
+        <div class="form-group">
+          <label>Project Description <span class="required">*</span></label>
+          <textarea id="projectDescription" rows="5" placeholder="Brief overview of the project, methodology, and what you'll need from the student." required></textarea>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Discipline <span class="required">*</span></label>
+          <select id="discipline" required>
+            <option>Medical Oncology</option>
+            <option>Radiation Oncology</option>
+            <option>Hematology-Oncology</option>
+            <option>Palliative Care</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Project Type</label>
+          <select id="projectType">
+            <option>Retrospective Chart Review</option>
+            <option>Prospective Cohort</option>
+            <option>Systematic Review / Meta-analysis</option>
+            <option>Clinical Trial Support</option>
+            <option>Lab / Translational</option>
+            <option>Quality Improvement</option>
+            <option>Case Series</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Expected Duration</label>
+          <select id="duration">
+            <option>1-3 months</option>
+            <option selected>3-6 months</option>
+            <option>6-12 months</option>
+            <option>12+ months</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Number of Students Needed</label>
+          <input type="number" id="studentsNeeded" min="1" value="1">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-title-num">3</span> Required Skills &amp; Experience</div>
+      <div class="form-row single">
+        <div class="form-group">
+          <label>Required Skills (select all that apply)</label>
+          <div class="checkbox-grid">
+            <label class="checkbox-row"><input type="checkbox" name="skill" value="Literature Review"> <span>Literature Review</span></label>
+            <label class="checkbox-row"><input type="checkbox" name="skill" value="SPSS"> <span>SPSS</span></label>
+            <label class="checkbox-row"><input type="checkbox" name="skill" value="R / Python"> <span>R / Python</span></label>
+            <label class="checkbox-row"><input type="checkbox" name="skill" value="Excel / REDCap"> <span>Excel / REDCap</span></label>
+            <label class="checkbox-row"><input type="checkbox" name="skill" value="Medical Writing"> <span>Medical Writing</span></label>
+            <label class="checkbox-row"><input type="checkbox" name="skill" value="Lab Techniques"> <span>Lab Techniques</span></label>
+            <label class="checkbox-row"><input type="checkbox" name="skill" value="Systematic Review"> <span>Systematic Review</span></label>
+            <label class="checkbox-row"><input type="checkbox" name="skill" value="EndNote / Zotero"> <span>EndNote / Zotero</span></label>
+            <label class="checkbox-row"><input type="checkbox" name="skill" value="Patient Communication"> <span>Patient Communication</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Minimum Year of Study</label>
+          <select id="minYear">
+            <option value="1">Year 1+</option>
+            <option value="2">Year 2+</option>
+            <option value="3" selected>Year 3+</option>
+            <option value="4">Year 4+</option>
+            <option value="5">Year 5+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Preferred GPA</label>
+          <select id="minGpa">
+            <option value="0">No minimum</option>
+            <option value="3.0">3.0+</option>
+            <option value="3.3" selected>3.3+</option>
+            <option value="3.5">3.5+</option>
+            <option value="3.7">3.7+</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="fs-title"><span class="fs-title-num">4</span> Additional Notes</div>
+      <div class="form-row single">
+        <div class="form-group">
+          <label>Anything else?</label>
+          <textarea id="notes" rows="3" placeholder="Authorship policy, IRB status, funding info, or anything else students should know."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-submit">
+      <a href="index.html" class="btn btn-ghost">Cancel</a>
+      <button type="submit" class="btn btn-primary btn-large" id="submitBtn">Post Project</button>
+    </div>
+    
+    <div id="formMessage" style="margin-top:20px;padding:16px;border-radius:8px;display:none;"></div>
+  </form>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 2025 ONCORE · Alfaisal University</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/main.js"></script>
+<script>
+  (async () => {
+    const profile = await getCurrentProfile();
+    if (profile) {
+      document.getElementById('fullName').value = profile.full_name || '';
+      document.getElementById('email').value = profile.email || '';
+      document.getElementById('email').readOnly = true;
+    } else {
+      document.getElementById('loginNotice').style.display = 'block';
+    }
+  })();
+  
+  document.getElementById('doctorForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const submitBtn = document.getElementById('submitBtn');
+    const formMessage = document.getElementById('formMessage');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+    
+    const skills = Array.from(document.querySelectorAll('input[name="skill"]:checked')).map(c => c.value);
+    const email = document.getElementById('email').value.trim().toLowerCase();
+    const fullName = document.getElementById('fullName').value.trim();
+    
+    try {
+      let user = await getCurrentUser();
+      let doctorId = user?.id;
+      
+      if (!user) {
+        const pendingData = {
+          email, fullName,
+          institution: document.getElementById('institution').value,
+          department: document.getElementById('department').value,
+          title: document.getElementById('projectTitle').value,
+          description: document.getElementById('projectDescription').value,
+          discipline: document.getElementById('discipline').value,
+          project_type: document.getElementById('projectType').value,
+          duration: document.getElementById('duration').value,
+          students_needed: parseInt(document.getElementById('studentsNeeded').value) || 1,
+          required_skills: skills,
+          min_year: parseInt(document.getElementById('minYear').value) || 1,
+          min_gpa: parseFloat(document.getElementById('minGpa').value) || 0,
+          notes: document.getElementById('notes').value
+        };
+        localStorage.setItem('pendingProject', JSON.stringify(pendingData));
+        localStorage.setItem('pendingSignupRole', 'doctor');
+        localStorage.setItem('pendingSignupName', fullName);
+        localStorage.setItem('pendingSignupEmail', email);
+        
+        formMessage.style.cssText = 'display:block;background:#d4edda;color:#155724;padding:16px;border-radius:8px;';
+        formMessage.innerHTML = `✅ <strong>Project saved!</strong> Redirecting you to verify your email...`;
+        submitBtn.textContent = 'Redirecting...';
+        
+        setTimeout(() => {
+          window.location.href = 'signup.html?from=project';
+        }, 1500);
+        return;
+      }
+      
+      const { error: projError } = await supabaseClient.from('projects').insert({
+        doctor_id: doctorId,
+        title: document.getElementById('projectTitle').value,
+        description: document.getElementById('projectDescription').value,
+        discipline: document.getElementById('discipline').value,
+        required_skills: skills,
+        min_year_of_study: parseInt(document.getElementById('minYear').value) || 1,
+        min_gpa: parseFloat(document.getElementById('minGpa').value) || 0,
+        notes: `Institution: ${document.getElementById('institution').value} | Department: ${document.getElementById('department').value} | Type: ${document.getElementById('projectType').value} | Duration: ${document.getElementById('duration').value} | Students Needed: ${document.getElementById('studentsNeeded').value} | Notes: ${document.getElementById('notes').value}`,
+        status: 'pending'
+      });
+      
+      if (projError) throw projError;
+      
+      formMessage.style.cssText = 'display:block;background:#d4edda;color:#155724;padding:16px;border-radius:8px;';
+      formMessage.innerHTML = `✅ <strong>Project posted!</strong> Admin will review and publish it shortly. <a href="dashboard.html" style="color:#155724;font-weight:600;">View dashboard →</a>`;
+      submitBtn.textContent = 'Posted ✓';
+      
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 2500);
+      
+    } catch (err) {
+      formMessage.style.cssText = 'display:block;background:#f8d7da;color:#721c24;padding:16px;border-radius:8px;';
+      formMessage.textContent = '❌ ' + err.message;
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Post Project';
+    }
+  });
+</script>
+
+</body>
+</html>

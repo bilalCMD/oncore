@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Projects — ONCORE</title>
+<meta name="description" content="Browse open oncology research projects at KFSHRC seeking Alfaisal medical student collaborators.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="images/oncore-logo.svg">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ═══════════ NAVIGATION ═══════════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <img src="images/oncore-logo.svg" alt="ONCORE Logo" class="brand-logo">
+      <div class="brand-text">
+        <span class="brand-name">ONCORE</span>
+        <span class="brand-tag">Oncology Collaboration for Research &amp; Excellence</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="research.html" class="nav-link active">Research</a>
+      <a href="doctor-requirements.html" class="nav-link">For Faculty</a>
+      <a href="student-application.html" class="nav-link">For Students</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="login.html" class="nav-link" id="headerLoginBtn" style="display:flex;align-items:center;gap:6px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+        Login
+      </a>
+      <div id="headerUserMenu" style="display:none;gap:12px;align-items:center;"></div>
+      <a href="doctor-requirements.html" class="btn btn-primary">Post a Project</a>
+    </div>
+    <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="research.html" class="nav-link active">Research</a>
+    <a href="doctor-requirements.html" class="nav-link">For Faculty</a>
+    <a href="student-application.html" class="nav-link">For Students</a>
+    <a href="contact.html" class="nav-link">Contact</a>
+    <a href="doctor-requirements.html" class="btn btn-primary">Post a Project</a>
+  </div>
+</nav>
+
+<!-- ═══════════ PAGE HEADER ═══════════ -->
+<section class="page-header">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Research</span>
+    </div>
+    <div class="eyebrow">Open Projects · KFSHRC</div>
+    <div class="heading-band-wrap">
+      <h1 class="heading-band">Active research <em>projects.</em></h1>
+    </div>
+    <p>Every project below is supervised by a faculty oncologist at King Faisal Specialist Hospital &amp; Research Centre, our primary collaborator. Filter by one of our four core disciplines, then apply to projects that match your interests.</p>
+  </div>
+</section>
+
+<!-- ═══════════ LISTINGS ═══════════ -->
+<section class="section-tight" style="padding-top: 48px;">
+  <div class="container">
+    <div class="filter-bar">
+      <button class="filter-pill active" onclick="filterResearch(this, 'all')">All Projects</button>
+      <button class="filter-pill" onclick="filterResearch(this, 'medical')">Medical Oncology</button>
+      <button class="filter-pill" onclick="filterResearch(this, 'radiation')">Radiation Oncology</button>
+      <button class="filter-pill" onclick="filterResearch(this, 'hematology')">Hematology-Oncology</button>
+      <button class="filter-pill" onclick="filterResearch(this, 'palliative')">Palliative Care</button>
+    </div>
+
+    <!-- Dynamically loaded projects from Supabase -->
+    <div id="liveProjects" style="margin-bottom:32px;"></div>
+
+    <div class="research-grid">
+
+      <article class="research-card" data-category="medical">
+        <div class="research-head">
+          <div class="doctor-info">
+            <div class="avatar" style="background: #50508c;">SD</div>
+            <div>
+              <div class="doc-name">Dr. S. Al-Dosari</div>
+              <div class="doc-inst">KFSHRC · Medical Oncology</div>
+            </div>
+          </div>
+          <span class="status status-open">● Open</span>
+        </div>
+        <h3 class="research-title">Immunotherapy outcomes in metastatic melanoma at KFSHRC</h3>
+        <p class="research-desc">Retrospective analysis of pembrolizumab and nivolumab outcomes in stage IV melanoma patients treated at KFSHRC over the past 4 years.</p>
+        <div class="tag-row"><span class="tag">Medical</span><span class="tag">Immunotherapy</span><span class="tag">Melanoma</span></div>
+        <div class="research-meta">
+          <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>9 mo</div>
+          <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/></svg>2 spots</div>
+          <a href="student-application.html" class="btn btn-primary" style="padding: 7px 16px; font-size: 0.8rem;">Apply</a>
+        </div>
+      </article>
+
+      <article class="research-card" data-category="medical">
+        <div class="research-head">
+          <div class="doctor-info">
+            <div class="avatar" style="background: #6464a0;">NA</div>
+            <div>
+              <div class="doc-name">Dr. N. Al-Sulaiman</div>
+              <div class="doc-inst">KFSHRC · Medical Oncology</div>
+            </div>
+          </div>
+          <span class="status status-open">● Open</span>
+        </div>
+        <h3 class="research-title">Biomarker discovery in triple-negative breast cancer</h3>
+        <p class="research-desc">Retrospective analysis using RNA-seq data from TNBC patients. Looking for help with literature review and basic statistical analysis.</p>
+        <div class="tag-row"><span class="tag">Medical</span><span class="tag">Breast</span><span class="tag">Bioinformatics</span></div>
+        <div class="research-meta">
+          <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>12 mo</div>
+          <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/></svg>2 spots</div>
+          <a href="student-application.html" class="btn btn-primary" style="padding: 7px 16px; font-size: 0.8rem;">Apply</a>
+        </div>
+      </article>
+
+      <article class="research-card" data-category="radiation">
+        <div class="research-head">
+          <div class="doctor-info">
+            <div class="avatar" style="background: #7878a8;">FA</div>
+            <div>
+              <div class="doc-name">Dr. F. Al-Zahrani</div>
+              <div class="doc-inst">KFSHRC · Radiation Oncology</div>
+            </div>
+          </div>
+          <span class="status status-open">● Open</span>
+        </div>
+        <h3 class="research-title">Outcomes of SBRT in early-stage NSCLC: a KFSHRC cohort</h3>
+        <p class="research-desc">Retrospective study examining survival and toxicity outcomes in stage I non-small cell lung cancer patients treated with stereotactic body radiotherapy.</p>
+        <div class="tag-row"><span class="tag">Radiation</span><span class="tag">Lung</span><span class="tag">Survival Analysis</span></div>
+        <div class="research-meta">
+          <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>6 mo</div>
+          <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/></svg>2 spots</div>
+          <a href="student-application.html" class="btn btn-primary" style="padding: 7px 16px; font-size: 0.8rem;">Apply</a>
+        </div>
+      </article>
+
+      <article class="research-card" data-category="radiation">
+        <div class="research-head">
+          <div class="doctor-info">
+            <div class="avatar" style="background: #b89dd9;">KA</div>
+            <div>
+              <div class="doc-name">Dr. K. Al-Ahmadi</div>
+              <div class="doc-inst">KFSHRC · Radiation Oncology</div>
+            </div>
+          </div>
+          <span class="status status-open">● Open</span>
+        </div>
+        <h3 class="research-title">IMRT vs VMAT dose distribution in head &amp; neck cancers</h3>
+        <p class="research-desc">Dosimetric comparison study evaluating intensity-modulated vs volumetric modulated arc therapy plans for oropharyngeal carcinomas.</p>
+        <div class="tag-row"><span class="tag">Radiation</span><span class="tag">Head &amp; Neck</span><span class="tag">Dosimetry</span></div>
+        <div class="research-meta">
+          <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>4 mo</div>
+          <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/></svg>1 spot</div>
+          <a href="student-application.html" class="btn btn-primary" style="padding: 7px 16px; font-size: 0.8rem;">Apply</a>
+        </div>
+      </article>
+
+      <article class="research-card" data-category="hematology">
+        <div class="research-head">
+          <div class="doctor-info">
+            <div class="avatar" style="background: #50508c;">MQ</div>
+            <div>
+              <div class="doc-name">Dr. M. Al-Qahtani</div>
+              <div class="doc-inst">KFSHRC · Hematology-Oncology</div>
+            </div>
+          </div>
+          <span class="status status-open">● Open</span>
+        </div>
+        <h3 class="research-title">Systematic review: CAR-T outcomes in relapsed B-cell lymphoma</h3>
+        <p class="research-desc">PRISMA-compliant systematic review and meta-analysis of CAR-T cell therapy outcomes in adult patients with relapsed/refractory B-cell lymphomas.</p>
+        <div class="tag-row"><span class="tag">Hematology</span><span class="tag">Lymphoma</span><span class="tag">Systematic Review</span></div>
+        <div class="research-meta">
+          <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>4 mo</div>
+          <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/></svg>3 spots</div>
+          <a href="student-application.html" class="btn btn-primary" style="padding: 7px 16px; font-size: 0.8rem;">Apply</a>
+        </div>
+      </article>
+
+      <article class="research-card" data-category="hematology">
+        <div class="research-head">
+          <div class="doctor-info">
+            <div class="avatar" style="background: #6464a0;">HS</div>
+            <div>
+              <div class="doc-name">Dr. H. Al-Shehri</div>
+              <div class="doc-inst">KFSHRC · Hematology-Oncology</div>
+            </div>
+          </div>
+          <span class="status status-soon">◐ Soon</span>
+        </div>
+        <h3 class="research-title">Late effects of chemotherapy in pediatric ALL survivors</h3>
+        <p class="research-desc">Cross-sectional study assessing cardiac, endocrine, and neurocognitive late effects in children who completed treatment for ALL 5+ years ago.</p>
+        <div class="tag-row"><span class="tag">Hematology</span><span class="tag">Pediatric</span><span class="tag">Survivorship</span></div>
+        <div class="research-meta">
+          <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>9 mo</div>
+          <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/></svg>2 spots</div>
+          <a href="student-application.html" class="btn btn-primary" style="padding: 7px 16px; font-size: 0.8rem;">Apply</a>
+        </div>
+      </article>
+
+      <article class="research-card" data-category="palliative">
+        <div class="research-head">
+          <div class="doctor-info">
+            <div class="avatar" style="background: #7878a8;">YH</div>
+            <div>
+              <div class="doc-name">Dr. Y. Al-Harbi</div>
+              <div class="doc-inst">KFSHRC · Palliative Care</div>
+            </div>
+          </div>
+          <span class="status status-open">● Open</span>
+        </div>
+        <h3 class="research-title">Pain management protocols in advanced pancreatic cancer</h3>
+        <p class="research-desc">Protocol development and outcome evaluation for opioid stewardship and palliative interventions in stage IV pancreatic adenocarcinoma.</p>
+        <div class="tag-row"><span class="tag">Palliative</span><span class="tag">Pancreatic</span><span class="tag">Pain Management</span></div>
+        <div class="research-meta">
+          <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>6 mo</div>
+          <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/></svg>2 spots</div>
+          <a href="student-application.html" class="btn btn-primary" style="padding: 7px 16px; font-size: 0.8rem;">Apply</a>
+        </div>
+      </article>
+
+      <article class="research-card" data-category="palliative">
+        <div class="research-head">
+          <div class="doctor-info">
+            <div class="avatar" style="background: #b89dd9;">RB</div>
+            <div>
+              <div class="doc-name">Dr. R. Bin-Taleb</div>
+              <div class="doc-inst">KFSHRC · Palliative Care</div>
+            </div>
+          </div>
+          <span class="status status-open">● Open</span>
+        </div>
+        <h3 class="research-title">Quality of life in metastatic colorectal cancer patients</h3>
+        <p class="research-desc">Survey-based study evaluating QoL metrics across different chemotherapy regimens for stage IV colorectal cancer. Patient interview experience preferred.</p>
+        <div class="tag-row"><span class="tag">Palliative</span><span class="tag">Colorectal</span><span class="tag">QoL Assessment</span></div>
+        <div class="research-meta">
+          <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>12 mo</div>
+          <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/></svg>3 spots</div>
+          <a href="student-application.html" class="btn btn-primary" style="padding: 7px 16px; font-size: 0.8rem;">Apply</a>
+        </div>
+      </article>
+
+    </div>
+
+    <div id="emptyState" style="display: none; text-align: center; padding: 80px 20px; color: var(--muted);">
+      <div style="font-family: var(--font-display); font-size: 1.4rem; color: var(--ink); margin-bottom: 8px;">No projects in this category yet</div>
+      <p>Check back soon, or browse all open projects.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA ═══════════ -->
+<section class="cta-section">
+  <div class="cta-deco-1"></div>
+  <div class="cta-deco-2"></div>
+  <div class="container cta-inner">
+    <h2>Don't see something <em>that fits?</em></h2>
+    <p>Submit your profile anyway — we'll match you with new projects as faculty post them. Most spots are filled within 2 weeks of opening.</p>
+    <div class="cta-buttons">
+      <a href="student-application.html" class="btn btn-on-dark btn-large">Submit a Profile</a>
+    </div>
+  </div>
+</section>
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand">
+          <img src="images/oncore-logo.svg" alt="ONCORE Logo" class="brand-logo">
+          <div class="brand-text">
+            <span class="brand-name">ONCORE</span>
+            <span class="brand-tag">Oncology Collaboration for Research &amp; Excellence</span>
+          </div>
+        </div>
+        <p>A structured research-matching program connecting Alfaisal medical students with oncology specialists at King Faisal Specialist Hospital &amp; Research Centre.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>For Faculty</h4>
+        <ul>
+          <li><a href="doctor-requirements.html">Post a Project</a></li>
+          <li><a href="contact.html">Faculty FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>For Students</h4>
+        <ul>
+          <li><a href="student-application.html">Apply</a></li>
+          <li><a href="research.html">Open Projects</a></li>
+          <li><a href="about.html">About ONCORE</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 ONCORE · Oncology Collaboration for Research &amp; Excellence · Alfaisal University</p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/oncoig.au" class="social-link" aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" class="social-link" aria-label="LinkedIn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="mailto:OncologyIG@alfaisal.edu" class="social-link" aria-label="Email">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">
+  <span class="toast-msg">Done.</span>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/main.js"></script>
+<script>
+  // Load live approved projects from Supabase
+  (async () => {
+    const { data: projects, error } = await supabaseClient
+      .from('projects')
+      .select('*, profiles!projects_doctor_id_fkey(full_name)')
+      .eq('status', 'approved')
+      .order('created_at', { ascending: false })
+      .limit(20);
+    
+    if (error || !projects || projects.length === 0) return;
+    
+    const liveSection = document.getElementById('liveProjects');
+    liveSection.innerHTML = `
+      <h2 style="font-size:24px;margin-bottom:16px;color:#1a1a1a;">🔴 Live Projects (${projects.length})</h2>
+      <div class="research-grid">
+        ${projects.map(p => {
+          const doctor = p.profiles || {};
+          const initials = (doctor.full_name || 'XX').split(' ').map(n=>n[0]).slice(0,2).join('').toUpperCase();
+          return `
+            <article class="research-card">
+              <div class="research-head">
+                <div class="doctor-info">
+                  <div class="avatar" style="background:#2d5a3d;">${initials}</div>
+                  <div>
+                    <div class="doc-name">${doctor.full_name || 'Faculty'}</div>
+                    <div class="doc-inst">${p.discipline}</div>
+                  </div>
+                </div>
+                <span class="status status-open">● Open</span>
+              </div>
+              <h3 class="research-title">${p.title}</h3>
+              <p class="research-desc">${(p.description || '').slice(0, 200)}${(p.description || '').length > 200 ? '...' : ''}</p>
+              <div class="tag-row">
+                ${(p.required_skills || []).slice(0,3).map(s => `<span class="tag">${s}</span>`).join('')}
+              </div>
+              <div class="research-meta">
+                <div class="meta-item">Posted ${new Date(p.created_at).toLocaleDateString()}</div>
+                <a href="student-application.html?project=${p.id}" class="btn btn-primary" style="padding:7px 16px;font-size:0.8rem;">Apply</a>
+              </div>
+            </article>
+          `;
+        }).join('')}
+      </div>
+    `;
+  })();
+</script>
+</body>
+</html>
