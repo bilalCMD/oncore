@@ -337,38 +337,67 @@
 <script src="js/supabase-config.js"></script>
 <script src="js/main.js"></script>
 <script>
-  // Load live approved projects from Supabase
+  // ═══════════════════════════════════════════════════════════════
+  // LIVE PROJECTS LOADER
+  // Admin ne jo approve kiye hain woh sabse upar dikhenge.
+  // Neeche demo projects rehte hain jab tak kaafi real approved
+  // projects nahi hote.
+  // ═══════════════════════════════════════════════════════════════
   (async () => {
     const { data: projects, error } = await supabaseClient
       .from('projects')
-      .select('*, profiles!projects_doctor_id_fkey(full_name)')
+      .select('*')
       .eq('status', 'approved')
       .order('created_at', { ascending: false })
       .limit(20);
-    
+
     if (error || !projects || projects.length === 0) return;
-    
+
+    // Fetch doctor names separately (FK join workaround)
+    const doctorIds = [...new Set(projects.map(p => p.doctor_id).filter(Boolean))];
+    let doctorMap = {};
+    if (doctorIds.length > 0) {
+      const { data: doctors } = await supabaseClient
+        .from('profiles')
+        .select('id, full_name')
+        .in('id', doctorIds);
+      (doctors || []).forEach(d => { doctorMap[d.id] = d.full_name; });
+    }
+
+    // Brand purple palette for avatars
+    const avatarColors = ['#50508c', '#64648c', '#7878a0', '#8c6fb0', '#b89dd9'];
+
+    // Map discipline → filter category
+    const catMap = {
+      'Medical Oncology':     'medical',
+      'Radiation Oncology':   'radiation',
+      'Hematology-Oncology':  'hematology',
+      'Hematology':           'hematology',
+      'Palliative Care':      'palliative'
+    };
+
     const liveSection = document.getElementById('liveProjects');
     liveSection.innerHTML = `
-      <h2 style="font-size:24px;margin-bottom:16px;color:#1a1a1a;">🔴 Live Projects (${projects.length})</h2>
       <div class="research-grid">
-        ${projects.map(p => {
-          const doctor = p.profiles || {};
-          const initials = (doctor.full_name || 'XX').split(' ').map(n=>n[0]).slice(0,2).join('').toUpperCase();
+        ${projects.map((p, i) => {
+          const docName = doctorMap[p.doctor_id] || 'Faculty Supervisor';
+          const initials = docName.split(' ').filter(Boolean).map(n => n[0]).slice(0,2).join('').toUpperCase() || 'OG';
+          const avatarColor = avatarColors[i % avatarColors.length];
+          const category = catMap[p.discipline] || 'medical';
           return `
-            <article class="research-card">
+            <article class="research-card" data-category="${category}">
               <div class="research-head">
                 <div class="doctor-info">
-                  <div class="avatar" style="background:#2d5a3d;">${initials}</div>
+                  <div class="avatar" style="background: ${avatarColor};">${initials}</div>
                   <div>
-                    <div class="doc-name">${doctor.full_name || 'Faculty'}</div>
-                    <div class="doc-inst">${p.discipline}</div>
+                    <div class="doc-name">${docName}</div>
+                    <div class="doc-inst">KFSHRC · ${p.discipline || 'Oncology'}</div>
                   </div>
                 </div>
                 <span class="status status-open">● Open</span>
               </div>
               <h3 class="research-title">${p.title}</h3>
-              <p class="research-desc">${(p.description || '').slice(0, 200)}${(p.description || '').length > 200 ? '...' : ''}</p>
+              <p class="research-desc">${(p.description || '').slice(0, 220)}${(p.description || '').length > 220 ? '...' : ''}</p>
               <div class="tag-row">
                 ${(p.required_skills || []).slice(0,3).map(s => `<span class="tag">${s}</span>`).join('')}
               </div>
@@ -379,6 +408,9 @@
             </article>
           `;
         }).join('')}
+      </div>
+      <div style="text-align:center;margin:32px 0 24px;color:var(--muted, #6b6878);font-size:13px;">
+        <span style="display:inline-block;padding:6px 16px;background:#ecebf3;color:#50508c;border-radius:20px;font-weight:500;">↓ Example projects below</span>
       </div>
     `;
   })();
