@@ -364,15 +364,41 @@
   // STUDENT DASHBOARD
   // ═════════════════════════════════════════════════════════════
   async function renderStudentDashboard(profile) {
+    // Simple query without joins (safer — no FK dependency)
     const { data: apps, error } = await supabaseClient
       .from('applications')
-      .select('*, projects(title, discipline, doctor_id, profiles!projects_doctor_id_fkey(full_name))')
+      .select('*')
       .eq('student_id', profile.id)
       .order('created_at', { ascending: false });
 
     if (error) {
       document.getElementById('dashContent').innerHTML = `<div class="empty-state"><div class="icon">⚠️</div>${error.message}</div>`;
       return;
+    }
+
+    // Fetch related projects separately if any applications have project_id
+    const projectIds = (apps || []).map(a => a.project_id).filter(Boolean);
+    let projectsMap = {};
+    if (projectIds.length > 0) {
+      const { data: projects } = await supabaseClient
+        .from('projects')
+        .select('id, title, discipline, doctor_id')
+        .in('id', projectIds);
+      (projects || []).forEach(p => { projectsMap[p.id] = p; });
+
+      // Fetch doctor names
+      const doctorIds = (projects || []).map(p => p.doctor_id).filter(Boolean);
+      if (doctorIds.length > 0) {
+        const { data: doctors } = await supabaseClient
+          .from('profiles')
+          .select('id, full_name')
+          .in('id', doctorIds);
+        const docMap = {};
+        (doctors || []).forEach(d => { docMap[d.id] = d.full_name; });
+        Object.values(projectsMap).forEach(p => {
+          p.doctor_name = docMap[p.doctor_id] || 'Faculty';
+        });
+      }
     }
 
     const total = apps?.length || 0;
@@ -441,8 +467,8 @@
     `;
 
     html += apps.map(a => {
-      const project = a.projects || {};
-      const doctor = project.profiles?.full_name || 'Unknown';
+      const project = projectsMap[a.project_id] || {};
+      const doctor = project.doctor_name || 'Faculty';
       const score = a.match_score;
       const scoreClass = score >= 80 ? 'strong' : score >= 60 ? 'mid' : 'weak';
 
@@ -509,7 +535,7 @@
       const projectIds = projects.map(p => p.id);
       const { data: apps } = await supabaseClient
         .from('applications')
-        .select('*, profiles!applications_student_id_fkey(full_name, email)')
+        .select('*')
         .in('project_id', projectIds);
       allApps = apps || [];
     }
