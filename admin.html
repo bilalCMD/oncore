@@ -240,8 +240,18 @@
       <a href="admin.html" class="nav-link active">Admin</a>
       <div id="headerUserMenu" style="display:flex;gap:12px;align-items:center;"></div>
     </div>
+    <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="nav-link">Public Site</a>
+    <a href="admin.html" class="nav-link active">Admin</a>
+    <div id="mobileUserMenu" style="display:none;flex-direction:column;gap:8px;"></div>
   </div>
 </nav>
+
+<script src="js/main.js"></script>
 
 <div class="admin-wrapper">
   <div class="admin-header">
@@ -637,15 +647,15 @@
   
   async function promoteAdmin(id) {
     if (!confirm('Promote this user to admin? They will gain full access.')) return;
-    const { error } = await supabaseClient.from('profiles').update({ is_admin: true, role: 'admin' }).eq('id', id);
+    const { error } = await supabaseClient.rpc('set_user_admin', { target_id: id, make_admin: true });
     if (error) { showToast('Error: ' + error.message, true); return; }
     showToast('User promoted to admin ✓');
     await loadUsers();
   }
-  
+
   async function demoteAdmin(id) {
     if (!confirm('Remove admin privileges from this user?')) return;
-    const { error } = await supabaseClient.from('profiles').update({ is_admin: false }).eq('id', id);
+    const { error } = await supabaseClient.rpc('set_user_admin', { target_id: id, make_admin: false });
     if (error) { showToast('Error: ' + error.message, true); return; }
     showToast('Admin removed');
     await loadUsers();

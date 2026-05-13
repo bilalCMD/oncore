@@ -290,8 +290,24 @@
       <a href="dashboard.html" class="nav-link active">Dashboard</a>
       <div id="headerUserMenu" style="display:flex;gap:12px;align-items:center;"></div>
     </div>
+    <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="research.html" class="nav-link">Research</a>
+    <a href="dashboard.html" class="nav-link active">Dashboard</a>
+    <a href="login.html" class="nav-link" id="mobileLoginBtn" style="display:none;align-items:center;gap:6px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+      Login
+    </a>
+    <div id="mobileUserMenu" style="display:none;flex-direction:column;gap:8px;"></div>
   </div>
 </nav>
+
+<script src="js/main.js"></script>
 
 <div class="dash-wrapper">
   <div class="dash-header">
