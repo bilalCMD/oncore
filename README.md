@@ -142,6 +142,7 @@ oncore-final/
 ├── auth-callback.html          Magic-link redirect handler
 ├── dashboard.html              User dashboard (student/doctor)
 ├── admin.html                  Admin panel (review/approve/reject)
+├── 404.html                    Branded not-found page (Vercel auto-serves)
 ├── vercel.json                 Vercel deployment config
 ├── .gitignore
 ├── css/style.css
@@ -149,10 +150,29 @@ oncore-final/
 │   ├── main.js                 Site UI JS
 │   └── supabase-config.js      Supabase client + auth helpers
 ├── images/
-└── sql/
-    ├── 00-complete-setup.sql   ⭐ Full DB setup (run pehle)
-    └── 01-make-admin.sql       Admin promote (run baad mein)
+├── sql/
+│   ├── 00-complete-setup.sql   ⭐ Full DB setup (run pehle)
+│   └── 01-make-admin.sql       Admin promote (run baad mein)
+└── supabase/functions/
+    └── notify-status/          (Optional) email on approve/reject — see its README
 ```
+
+---
+
+## ✨ Features
+
+- **Public site** — homepage, about, research listings (live + example), contact, FAQ
+- **Research page** — text search + discipline filter pills; admin-approved projects show on top
+- **Apply-to-project** — student form pe "you're applying to X" context aur discipline auto-select
+- **OTP auth** — passwordless login/signup with 30-second resend cooldown
+- **Student dashboard** — application status (pending / matched / rejected) + match score
+- **Faculty dashboard** — posted projects, applicant counts, approval status
+- **Admin panel** — review/approve/reject, Match Portal, per-tab **search**, **CSV export** (applications/users/projects), promote/demote admins
+- **Auto match scoring** — DB trigger (discipline / skills / year / GPA / publications)
+- **SEO + Open Graph** meta tags on all public pages for clean social-share previews
+- **(Optional) Email notifications** — approve/reject pe student ko email (`supabase/functions/notify-status`)
+
+> **OG image tip:** abhi `images/oncore-logo.svg` use ho raha hai. Best previews ke liye ek **1200×630 PNG** banao (e.g. `images/og-cover.png`) aur har page ke `og:image` / `twitter:image` usi ki taraf point kar do.
 
 ---
 

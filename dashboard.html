@@ -487,7 +487,6 @@
 
     html += apps.map(a => {
       const project = projectsMap[a.project_id] || {};
-      const doctor = project.doctor_name || 'Faculty';
       const score = a.match_score;
       const scoreClass = score >= 80 ? 'strong' : score >= 60 ? 'mid' : 'weak';
 
@@ -501,7 +500,7 @@
       } else if (a.status === 'matched' || a.status === 'approved') {
         statusBanner = `
           <div class="status-banner matched">
-            ✅ <strong>Approved & Matched!</strong> Congratulations! ${project.title ? `You've been matched to <strong>${project.title}</strong>` : 'Your application has been approved'}${doctor !== 'Unknown' ? ` with <strong>${doctor}</strong>` : ''}. The faculty supervisor will contact you soon at <strong>${profile.email}</strong>.
+            ✅ <strong>Approved & Matched!</strong> Congratulations! ${project.title ? `You've been matched to <strong>${project.title}</strong>` : 'Your application has been approved'}${project.doctor_name ? ` with <strong>${project.doctor_name}</strong>` : ''}. The faculty supervisor will contact you soon at <strong>${profile.email}</strong>.
           </div>
         `;
       } else if (a.status === 'rejected') {

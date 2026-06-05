@@ -232,7 +232,30 @@
 <script src="js/supabase-config.js"></script>
 <script>
   let userEmail = '';
-  
+  let resendTimer = null;
+
+  // 30-second cooldown on the "Resend code" link
+  function startResendCooldown(seconds = 30) {
+    const link = document.getElementById('resendBtn');
+    if (!link) return;
+    let remaining = seconds;
+    link.style.pointerEvents = 'none';
+    link.style.opacity = '0.5';
+    clearInterval(resendTimer);
+    const tick = () => {
+      link.textContent = remaining > 0 ? `Resend code (${remaining}s)` : 'Resend code';
+      if (remaining <= 0) {
+        clearInterval(resendTimer);
+        link.style.pointerEvents = '';
+        link.style.opacity = '';
+        return;
+      }
+      remaining--;
+    };
+    tick();
+    resendTimer = setInterval(tick, 1000);
+  }
+
   // If already logged in, redirect
   (async () => {
     const user = await getCurrentUser();
@@ -268,6 +291,7 @@
       document.getElementById('step1').style.display = 'none';
       document.getElementById('step2').style.display = 'block';
       document.getElementById('otp').focus();
+      startResendCooldown();
     } catch (err) {
       msg.className = 'auth-message error';
       const m = (err.message || '').toLowerCase();
@@ -346,12 +370,13 @@
       if (error) throw error;
       msg.className = 'auth-message success';
       msg.textContent = '✅ New code sent! Check your email.';
+      startResendCooldown();
     } catch (err) {
       msg.className = 'auth-message error';
       msg.textContent = '❌ ' + err.message;
     }
   });
-  
+
   // ════════ Change email ════════
   document.getElementById('changeEmailBtn').addEventListener('click', () => {
     document.getElementById('step2').style.display = 'none';

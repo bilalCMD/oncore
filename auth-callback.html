@@ -95,6 +95,7 @@
           const data = JSON.parse(pendingApp);
           const { error: appErr } = await supabaseClient.from('applications').insert({
             student_id: session.user.id,
+            project_id: data.project_id || null,
             discipline: data.disciplines[0],
             disciplines: data.disciplines,
             skills: data.skills,

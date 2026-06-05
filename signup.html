@@ -276,7 +276,30 @@
   let selectedRole = null;
   let userEmail = '';
   let userFullName = '';
-  
+  let resendTimer = null;
+
+  // 30-second cooldown on the "Resend code" link
+  function startResendCooldown(seconds = 30) {
+    const link = document.getElementById('resendBtn');
+    if (!link) return;
+    let remaining = seconds;
+    link.style.pointerEvents = 'none';
+    link.style.opacity = '0.5';
+    clearInterval(resendTimer);
+    const tick = () => {
+      link.textContent = remaining > 0 ? `Resend code (${remaining}s)` : 'Resend code';
+      if (remaining <= 0) {
+        clearInterval(resendTimer);
+        link.style.pointerEvents = '';
+        link.style.opacity = '';
+        return;
+      }
+      remaining--;
+    };
+    tick();
+    resendTimer = setInterval(tick, 1000);
+  }
+
   function selectRole(role) {
     selectedRole = role;
     document.getElementById('role').value = role;
@@ -308,9 +331,9 @@
       selectRole(pendingRole);
       
       if (from === 'application') {
-        document.querySelector('.auth-sub').innerHTML = '✅ Your application is saved! Just verify your email to submit it. We sent you a 6-digit code.';
+        document.querySelector('.auth-sub').innerHTML = '✅ Your application is saved! Click below to get a 6-digit code and verify your email to submit it.';
       } else if (from === 'project') {
-        document.querySelector('.auth-sub').innerHTML = '✅ Your project is saved! Just verify your email to publish it. We sent you a 6-digit code.';
+        document.querySelector('.auth-sub').innerHTML = '✅ Your project is saved! Click below to get a 6-digit code and verify your email to publish it.';
       }
     }
   })();
@@ -351,6 +374,7 @@
       document.getElementById('step1').style.display = 'none';
       document.getElementById('step2').style.display = 'block';
       document.getElementById('otp').focus();
+      startResendCooldown();
     } catch (err) {
       msg.className = 'auth-message error';
       const m = (err.message || '').toLowerCase();
@@ -445,12 +469,13 @@
       if (error) throw error;
       msg.className = 'auth-message success';
       msg.textContent = '✅ New code sent! Check your email.';
+      startResendCooldown();
     } catch (err) {
       msg.className = 'auth-message error';
       msg.textContent = '❌ ' + err.message;
     }
   });
-  
+
   // ════════ Go back ════════
   document.getElementById('backBtn').addEventListener('click', () => {
     document.getElementById('step2').style.display = 'none';

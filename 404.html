@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found — ONCORE</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="images/oncore-logo.svg">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .nf-wrap {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 24px;
+    background: radial-gradient(ellipse at 80% 0%, rgba(184,157,217,0.18), transparent 50%), var(--brand-cream, #f7f6fb);
+  }
+  .nf-wrap img { height: 64px; margin-bottom: 32px; }
+  .nf-code {
+    font-family: var(--font-display, 'Cormorant Garamond', serif);
+    font-size: clamp(80px, 18vw, 160px);
+    line-height: 0.9;
+    color: var(--brand-primary, #50508c);
+    margin: 0;
+  }
+  .nf-wrap h1 { font-size: 26px; margin: 16px 0 8px; color: var(--ink, #1a1a1a); }
+  .nf-wrap p { color: var(--muted, #6b6878); max-width: 440px; margin: 0 auto 28px; line-height: 1.6; }
+  .nf-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+</style>
+</head>
+<body>
+  <div class="nf-wrap">
+    <img src="images/oncore-logo.svg" alt="ONCORE">
+    <p class="nf-code">404</p>
+    <h1>This page wandered off.</h1>
+    <p>The page you're looking for doesn't exist or may have moved. Let's get you back on track.</p>
+    <div class="nf-actions">
+      <a href="index.html" class="btn btn-primary btn-large">← Back to Home</a>
+      <a href="research.html" class="btn btn-outline btn-large">Browse Research</a>
+    </div>
+  </div>
+</body>
+</html>

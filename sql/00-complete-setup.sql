@@ -303,6 +303,29 @@ CREATE POLICY "apps_admin_update" ON public.applications
 
 
 -- ═══════════════════════════════════════════════════════════════════
+-- 6b. ADMIN PROMOTE / DEMOTE RPC
+-- admin.html "Make Admin" / "Remove Admin" buttons isay call karte hain.
+-- Sirf ek maujooda admin hi kisi aur ka is_admin flag change kar sakta hai.
+-- ═══════════════════════════════════════════════════════════════════
+CREATE OR REPLACE FUNCTION public.set_user_admin(target_id UUID, make_admin BOOLEAN)
+RETURNS VOID AS $$
+BEGIN
+  -- Caller must already be an admin
+  IF NOT public.is_admin() THEN
+    RAISE EXCEPTION 'Only admins can change admin status';
+  END IF;
+
+  UPDATE public.profiles
+  SET is_admin = make_admin,
+      role     = CASE WHEN make_admin THEN 'admin'
+                      WHEN role = 'admin' THEN 'student'
+                      ELSE role END
+  WHERE id = target_id;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+
+-- ═══════════════════════════════════════════════════════════════════
 -- 7. BACKFILL EXISTING USERS (one-time)
 -- Agar pehle se kuch users hain in auth.users but profile nahi hai,
 -- yeh unke liye profiles bana deta hai.

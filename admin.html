@@ -280,12 +280,18 @@
         <option value="matched">Matched / Approved</option>
         <option value="rejected">Rejected</option>
       </select>
+      <input type="search" id="appSearch" placeholder="Search name, email, discipline…" oninput="renderApplications()">
+      <button class="btn-action btn-view" style="margin-left:auto;" onclick="exportApplications()">⬇ Export CSV</button>
     </div>
     <div id="applicationsList">Loading...</div>
   </div>
   
   <!-- Projects Tab -->
   <div class="tab-content" id="tab-projects">
+    <div class="filter-bar">
+      <input type="search" id="projectSearch" placeholder="Search title, faculty, discipline…" oninput="renderProjects()">
+      <button class="btn-action btn-view" style="margin-left:auto;" onclick="exportProjects()">⬇ Export CSV</button>
+    </div>
     <div id="projectsList">Loading...</div>
   </div>
   
@@ -304,6 +310,8 @@
         <option value="doctor">Doctors</option>
         <option value="admin">Admins</option>
       </select>
+      <input type="search" id="userSearch" placeholder="Search name or email…" oninput="renderUsers()">
+      <button class="btn-action btn-view" style="margin-left:auto;" onclick="exportUsers()">⬇ Export CSV</button>
     </div>
     <div id="usersList">Loading...</div>
   </div>
@@ -354,7 +362,8 @@
   function switchTab(name) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    event.target.classList.add('active');
+    // event.currentTarget = jis button pe handler laga hai (count span pe click ho tab bhi sahi rahe)
+    event.currentTarget.classList.add('active');
     document.getElementById(`tab-${name}`).classList.add('active');
   }
   
@@ -391,6 +400,8 @@
   // ═══════════════════════════════════════════════════════════
   // APPLICATIONS
   // ═══════════════════════════════════════════════════════════
+  let appsData = [];
+
   async function loadApplications() {
     const filter = document.getElementById('appFilter').value;
     let query = supabaseClient
@@ -398,29 +409,43 @@
       .select('*, profiles!applications_student_id_fkey(full_name, email), projects(title, discipline)')
       .order('match_score', { ascending: false, nullsFirst: false })
       .order('created_at', { ascending: false });
-    
+
     if (filter !== 'all') {
       query = query.eq('status', filter);
     }
-    
+
     const { data, error } = await query;
-    
+
     if (error) {
       document.getElementById('applicationsList').innerHTML = `<div class="empty-state">Error: ${error.message}</div>`;
       return;
     }
-    
-    if (!data || data.length === 0) {
-      document.getElementById('applicationsList').innerHTML = `<div class="empty-state"><div style="font-size:48px;margin-bottom:12px;">📋</div>No applications match this filter.</div>`;
+
+    appsData = data || [];
+    renderApplications();
+  }
+
+  function renderApplications() {
+    const term = (document.getElementById('appSearch')?.value || '').trim().toLowerCase();
+    const rows = term
+      ? appsData.filter(a => {
+          const s = a.profiles || {}, p = a.projects || {};
+          return [s.full_name, s.email, a.discipline, p.title, p.discipline, a.research_interest]
+            .filter(Boolean).join(' ').toLowerCase().includes(term);
+        })
+      : appsData;
+
+    if (!rows.length) {
+      document.getElementById('applicationsList').innerHTML = `<div class="empty-state"><div style="font-size:48px;margin-bottom:12px;">📋</div>No applications match${term ? ' your search.' : ' this filter.'}</div>`;
       return;
     }
-    
-    document.getElementById('applicationsList').innerHTML = data.map(a => {
+
+    document.getElementById('applicationsList').innerHTML = rows.map(a => {
       const student = a.profiles || {};
       const project = a.projects || {};
       const score = a.match_score;
       const scoreClass = score >= 80 ? 'score-strong' : score >= 60 ? 'score-mid' : 'score-weak';
-      
+
       return `
         <div class="item-card">
           <div>
@@ -512,23 +537,39 @@
   // ═══════════════════════════════════════════════════════════
   // PROJECTS
   // ═══════════════════════════════════════════════════════════
+  let projectsData = [];
+
   async function loadProjects() {
     const { data, error } = await supabaseClient
       .from('projects')
       .select('*, profiles!projects_doctor_id_fkey(full_name, email)')
       .order('created_at', { ascending: false });
-    
+
     if (error) {
       document.getElementById('projectsList').innerHTML = `<div class="empty-state">Error: ${error.message}</div>`;
       return;
     }
-    
-    if (!data || data.length === 0) {
-      document.getElementById('projectsList').innerHTML = `<div class="empty-state"><div style="font-size:48px;margin-bottom:12px;">🔬</div>No projects posted yet.</div>`;
+
+    projectsData = data || [];
+    renderProjects();
+  }
+
+  function renderProjects() {
+    const term = (document.getElementById('projectSearch')?.value || '').trim().toLowerCase();
+    const rows = term
+      ? projectsData.filter(p => {
+          const d = p.profiles || {};
+          return [p.title, p.discipline, d.full_name, d.email, (p.required_skills || []).join(' ')]
+            .filter(Boolean).join(' ').toLowerCase().includes(term);
+        })
+      : projectsData;
+
+    if (!rows.length) {
+      document.getElementById('projectsList').innerHTML = `<div class="empty-state"><div style="font-size:48px;margin-bottom:12px;">🔬</div>${term ? 'No projects match your search.' : 'No projects posted yet.'}</div>`;
       return;
     }
-    
-    document.getElementById('projectsList').innerHTML = data.map(p => {
+
+    document.getElementById('projectsList').innerHTML = rows.map(p => {
       const doctor = p.profiles || {};
       return `
         <div class="item-card">
@@ -613,24 +654,41 @@
   // ═══════════════════════════════════════════════════════════
   // USERS
   // ═══════════════════════════════════════════════════════════
+  let usersData = [];
+
   async function loadUsers() {
     const filter = document.getElementById('userFilter').value;
     let query = supabaseClient.from('profiles').select('*').order('created_at', { ascending: false });
-    
+
     if (filter === 'admin') {
       query = query.eq('is_admin', true);
     } else if (filter !== 'all') {
       query = query.eq('role', filter);
     }
-    
+
     const { data, error } = await query;
-    
+
     if (error) {
       document.getElementById('usersList').innerHTML = `<div class="empty-state">Error: ${error.message}</div>`;
       return;
     }
-    
-    document.getElementById('usersList').innerHTML = data.map(u => `
+
+    usersData = data || [];
+    renderUsers();
+  }
+
+  function renderUsers() {
+    const term = (document.getElementById('userSearch')?.value || '').trim().toLowerCase();
+    const rows = term
+      ? usersData.filter(u => [u.full_name, u.email, u.role].filter(Boolean).join(' ').toLowerCase().includes(term))
+      : usersData;
+
+    if (!rows.length) {
+      document.getElementById('usersList').innerHTML = `<div class="empty-state"><div style="font-size:48px;margin-bottom:12px;">👥</div>No users match your search.</div>`;
+      return;
+    }
+
+    document.getElementById('usersList').innerHTML = rows.map(u => `
       <div class="item-card">
         <div>
           <h3>${u.full_name || 'No name'} ${u.is_admin ? '<span class="status-badge status-approved" style="margin-left:8px;">ADMIN</span>' : ''}</h3>
@@ -673,6 +731,70 @@
     t.textContent = msg;
     t.className = 'toast show' + (isError ? ' error' : '');
     setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // ═══════════════════════════════════════════════════════════
+  // CSV EXPORT
+  // ═══════════════════════════════════════════════════════════
+  function downloadCSV(filename, rows) {
+    if (!rows || !rows.length) { showToast('Nothing to export', true); return; }
+    const headers = Object.keys(rows[0]);
+    const esc = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
+    const csv = [
+      headers.join(','),
+      ...rows.map(r => headers.map(h => esc(r[h])).join(','))
+    ].join('\r\n');
+    // BOM taake Excel mein Arabic/diacritics theek dikhein
+    const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast(`Exported ${rows.length} row${rows.length === 1 ? '' : 's'} ✓`);
+  }
+
+  const stamp = () => new Date().toISOString().slice(0, 10);
+
+  function exportApplications() {
+    downloadCSV(`oncore-applications-${stamp()}.csv`, appsData.map(a => ({
+      student_name: a.profiles?.full_name || '',
+      email: a.profiles?.email || '',
+      discipline: a.discipline || '',
+      year_of_study: a.year_of_study || '',
+      gpa: a.gpa || '',
+      publications: a.publications ?? 0,
+      skills: (a.skills || []).join('; '),
+      project: a.projects?.title || '',
+      status: a.status || '',
+      match_score: a.match_score ?? '',
+      research_interest: a.research_interest || '',
+      submitted: a.created_at ? new Date(a.created_at).toLocaleString() : ''
+    })));
+  }
+
+  function exportProjects() {
+    downloadCSV(`oncore-projects-${stamp()}.csv`, projectsData.map(p => ({
+      title: p.title || '',
+      faculty: p.profiles?.full_name || '',
+      email: p.profiles?.email || '',
+      discipline: p.discipline || '',
+      required_skills: (p.required_skills || []).join('; '),
+      status: p.status || 'pending',
+      description: p.description || '',
+      posted: p.created_at ? new Date(p.created_at).toLocaleString() : ''
+    })));
+  }
+
+  function exportUsers() {
+    downloadCSV(`oncore-users-${stamp()}.csv`, usersData.map(u => ({
+      full_name: u.full_name || '',
+      email: u.email || '',
+      role: u.role || '',
+      is_admin: u.is_admin ? 'yes' : 'no',
+      joined: u.created_at ? new Date(u.created_at).toLocaleString() : ''
+    })));
   }
 </script>
 

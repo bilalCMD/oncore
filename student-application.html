@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Students — ONCORE</title>
 <meta name="description" content="Submit your profile and apply for oncology research opportunities at ONCORE.">
+<!-- Open Graph / social share -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ONCORE">
+<meta property="og:title" content="For Students — ONCORE">
+<meta property="og:description" content="Submit your profile and apply for oncology research opportunities at KFSHRC.">
+<meta property="og:image" content="images/oncore-logo.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="For Students — ONCORE">
+<meta name="twitter:description" content="Apply for oncology research opportunities at KFSHRC.">
+<meta name="twitter:image" content="images/oncore-logo.svg">
+<meta name="theme-color" content="#50508c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -59,6 +70,9 @@
     <a href="index.html" class="back-link">← Back to home</a>
     <h1>Submit Your Profile</h1>
     <p>Tell us about yourself, your academic background, and your research interests. We'll match your profile against open faculty projects and notify you when there's a fit.</p>
+    <div id="projectContext" style="display:none;background:#f0f7f3;border:1px solid #1a8a5f;padding:14px 18px;border-radius:8px;margin-top:16px;color:#155724;">
+      🔬 You're applying to: <strong id="projectContextTitle"></strong><span id="projectContextMeta"></span>
+    </div>
     <div id="loginNotice" style="display:none;background:#fff3cd;border:1px solid #ffc107;padding:12px 16px;border-radius:8px;margin-top:16px;color:#856404;">
       💡 <strong>Tip:</strong> <a href="login.html" style="color:#856404;text-decoration:underline;">Login</a> first to track your application. Or just submit below — we'll auto-create your account using your email.
     </div>
@@ -234,6 +248,28 @@
 <script src="js/supabase-config.js"></script>
 <script src="js/main.js"></script>
 <script>
+  // Agar research page se kisi specific project pe "Apply" dabaya gaya ho
+  const projectId = new URLSearchParams(window.location.search).get('project') || null;
+
+  // Project context banner + discipline auto-select
+  (async () => {
+    if (!projectId) return;
+    const { data: proj } = await supabaseClient
+      .from('projects')
+      .select('title, discipline')
+      .eq('id', projectId)
+      .maybeSingle();
+    if (!proj) return;
+    document.getElementById('projectContextTitle').textContent = proj.title;
+    if (proj.discipline) {
+      document.getElementById('projectContextMeta').textContent = ` · ${proj.discipline}`;
+      // Matching discipline checkbox auto-tick (match score behtar)
+      const cb = document.querySelector(`input[name="discipline"][value="${proj.discipline}"]`);
+      if (cb) cb.checked = true;
+    }
+    document.getElementById('projectContext').style.display = 'block';
+  })();
+
   (async () => {
     const profile = await getCurrentProfile();
     if (profile) {
@@ -275,6 +311,7 @@
         // Save form data to localStorage so we can submit it after OTP verification
         const pendingData = {
           email, fullName,
+          project_id: projectId,
           phone: document.getElementById('phone').value,
           nationality: document.getElementById('nationality').value,
           university: document.getElementById('university').value,
@@ -310,6 +347,7 @@
       // User is logged in — submit application directly
       const { error: appError } = await supabaseClient.from('applications').insert({
         student_id: studentId,
+        project_id: projectId,
         discipline: disciplines[0],
         disciplines: disciplines,
         skills: skills,
