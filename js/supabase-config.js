@@ -2,8 +2,8 @@
 // SUPABASE CONFIG — Shared across all pages
 // ═══════════════════════════════════════════════════════════
 
-const SUPABASE_URL = 'https://imwgyunypcnlcpiayjfh.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imltd2d5dW55cGNubGNwaWF5amZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyOTI0ODEsImV4cCI6MjA5Mzg2ODQ4MX0.lYEWFoZStLVI4II_KOgK_1euwXyegrfCQBKTltiXgRg';
+const SUPABASE_URL = 'https://pbwtanlvpgmeigyqlyqr.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBid3Rhbmx2cGdtZWlneXFseXFyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI3OTc4MDUsImV4cCI6MjA5ODM3MzgwNX0.kX4X7mY7nNSuN03JImN7bB1eFTYwZBxl2Endh-BBVc8';
 
 // Initialize Supabase client (loaded from CDN in HTML)
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
